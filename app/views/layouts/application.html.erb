@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang= "ja">
   <head>
-    <title>AttendenceMng</title>
+    <title>sharevel</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,6 +10,12 @@
   </head>
 
   <body>
-    <%= yield %>
+    <%= render "shared/header" %>
+    <%= render "shared/flash" %>    
+    <div id="main-container">
+      <!--↑背景色指定用-->
+      <%= yield %>
+    </div>
+    <%= render "shared/footer" %>
   </body>
 </html>

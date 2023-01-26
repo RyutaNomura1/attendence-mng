@@ -1,0 +1,16 @@
+<%= form_for (@post) do |f| %>    
+  <%= f.label :title, "タイトル", class: "label-control"%>
+  <%= f.text_field :title, class: 'form-control' %>
+  
+  <%= f.label :location, "場所", class: "label-control"%>
+  <%= f.text_field :location, class: 'form-control' %>
+   
+  <%= f.label :post_image, "写真", class: "label-control" %><br>
+  <%= f.attachment_field :post_image %><br>
+
+  <%= f.label :body, "内容", class: "label-control" %>　　　
+  <%= f.text_area :body, class: 'form-control' %>
+  <div class="submit-position">
+    <%= f.submit locals[:button_text] , class: "btn btn-success" %>
+  </div>
+<% end %>

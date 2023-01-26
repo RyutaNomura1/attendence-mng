@@ -1,0 +1,11 @@
+<% if object.errors.any? %>
+<!--変数名モデルを変更する-->
+  <div class="alert alert-danger">
+    <ul class="list-unstyled">
+      <li><%= object.errors.count %>件のエラー</li>
+      <% object.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

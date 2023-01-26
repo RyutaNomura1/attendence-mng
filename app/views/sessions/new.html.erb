@@ -1,0 +1,22 @@
+<section class="w1100-container">
+
+  <%= form_for(:session, url: login_path) do |f| %>
+    <!--render 'shared/error_messages', object: f.object-->
+    <!--エラーが起きたのでコメントアウトしておく-->  
+    <%= f.label :email, "メールアドレス", class: "label-control" %>
+    <%= f.email_field :email, class: 'form-control' %>
+  
+    <%= f.label :password, "パスワード", class: "label-control" %>
+    <%= f.password_field :password, class: 'form-control' %>
+    
+    <div class= "submit-position">
+      <%= f.submit "ログイン", class: "btn btn-success" %>
+    </div>  
+    <!--ボタンに表示される"Log in"を削除した-->
+  <% end %>
+  <div class="text-right">
+    <%= link_to "初めての方はこちら", new_user_path %>
+  </div>
+
+  
+</section>

@@ -1,0 +1,16 @@
+<section class="w1100-container">
+<h1>Users#show</h1>
+<p>Find me in app/views/users/show.html.erb</p>
+  <section>
+    <%= attachment_image_tag @user, :profile_image, class: "profile_image", fallback: "no_image.jpg", size: '100x100' %>
+    <%= @user.username%>
+    <% if @user.id == current_user.id  %>
+      <%= @user.email %>
+    <% end %>
+    <%= @user.profile %>
+    <%= link_to "編集", edit_user_path(@user), class: "btn btn-primary"%>
+  </section>
+  <section>
+    
+  </section>
+</section>

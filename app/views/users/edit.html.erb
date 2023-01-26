@@ -1,0 +1,32 @@
+  <!--render 'shared/error_messages', model: f.object %>-->
+    <!--エラーが起きたのでコメントアウトしておく-->
+<div id="container-with-menu">
+  <section class="side-menu-container d-inline-block align-top">
+    <ul class="list-group h6">
+      <li><%= link_to "基本情報", edit_user_path(@user), class: " list-group-item" %></li>
+      <li><%= link_to "旅歴", "#", class: "list-group-item" %></li>
+      <li><%= link_to "パスワード設定", "#", class: "list-group-item" %></li>
+    </ul>
+  </section>      
+  <section class="w800-container d-inline-block">
+    <h1>Users#edit</h1>
+    <p>Find me in app/views/users/edit.html.erb</p>
+  <%= form_for (@user) do |f| %>
+      <%= f.label :username, "名前", class: "label-control text-left" %>
+      <%= f.text_field :username, class: 'form-control' %>
+       
+      <%= f.label :profile_image_id, "プロフィール画像", class: "label-control text-left"%><br>
+      <%= f.attachment_field :profile_image %><br>
+  
+    
+      <%= f.label :profile,"自己紹介", class: "label-control text-left" %>　　　
+      <%= f.text_field :profile, class: 'form-control' %>
+    
+      <%= f.label :email, "メールアドレス", class: "label-control text-left" %>
+      <%= f.email_field :email, class: 'form-control' %>
+      <div class= "submit-position">
+        <%= f.submit "プロフィールを更新", class: "btn btn-success" %>
+      </div>  
+    <% end %>
+  </section>
+</div>    
