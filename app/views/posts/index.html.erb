@@ -1,23 +1,19 @@
-<section class="w1100-container">
-<h1>Posts#index</h1>
-<p>Find me in app/views/posts/index.html.erb</p>
+<section class = "w1100-container">
+  <h2>投稿一覧</h2>
   <% @posts.each do |post| %>
-  <div class="post-container">
-    <div>
-      <%= attachment_image_tag post.user, :profile_image, class: "profile_image", style: "border: 0.5px solid rgba(221, 221, 221, 0.5);", fallback: "no_image.jpg", size: '35x35' %>
-      <div class="d-inline-block align-bottom">
-        <p class="post-top-element" id ="post-username"><%= post.user.username %></p>
-        <p class="post-top-element"  id="post-location"><%= post.location %></p>
+  <section class = post-container>
+        <%= attachment_image_tag post.user, :profile_image, class: "profile_image", fallback: "no_image.jpg", size: '40x40' %>
+      <div class="d-inline-block align-middle">
+        <p class="post-top-element d-inline" id = "post-username" ><%= post.user.username %></p>
+        <p class="post-top-element d-inline" id = "post-location" ><%= post.location %></p>
+        <p class="post-top-element" id = "post-title" ><%= post.title %></p>
       </div>
-    </div>
-    <%= attachment_image_tag post, :post_image, class: "d-block", size: '400x400' %> 
-    <div>
-      <%= simple_format post.body, class: "mx-2 my-2", id: "post-body" %>
-      <p id="post-create-at"><%= post.created_at.strftime("%Y-%m-%d %H:%M") %></p>
-    </div>
-  </div>
-    <% end %>
-      
+        <%= attachment_image_tag post, :post_image, class: "d-block", style: "margin: 0 auto ;", size: '400x400' %>
+      <div>
+        <%= simple_format post.body, id: "post-body" %>
+        <p id = "post-created-at"><%= post.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+      </div>
+  </section>
+  <% end %>
   
 </section>
-

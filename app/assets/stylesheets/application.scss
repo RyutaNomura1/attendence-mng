@@ -15,7 +15,7 @@
 
 $mainColor: #218838;
 $bgColor: #efefef;
-$lightBlack: #464646;
+$lightBlack: #525252;
 
 @mixin container{
   margin: 30px auto;
@@ -160,28 +160,37 @@ footer{
 
 //投稿一覧
 .post-container{
-  width: 400px;
-  margin: 0 auto;
+  width: 420px;
+  margin: 0 auto 10px;
   border: 0.5px solid rgba(221, 221, 221, 0.5 );
   border-radius: 5px; 
+  
   .post-top-element{
     margin: 0;
   }
   #post-username{
-    font-size: 15px;
+    font-size: 13px;
+    padding-right: 10px;
   }
   #post-location{
-    font-size: 12px;
-    padding-bottom: 7px;
+    font-size: 10px;
+    color:$lightBlack;
+  }
+  #post-title{
+    font-size: 14px;
+    font-weight: bold;    
   }
   #post-body{
     font-size: 10px;
-    color: $lightBlack;
+    padding: 8px 10px 4px;
+    margin-bottom: 0;
   }
-  #post-create-at{
+  #post-created-at{
+    font-size: 10px;
+    margin-bottom: 0;
+    color: $lightBlack;
     width: 100px;
-    font-size: 12px;
-    margin: 0 4px 4px auto;
+    margin-left: auto;
   }
 }
 
