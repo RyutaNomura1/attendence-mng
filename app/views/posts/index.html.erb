@@ -1,8 +1,8 @@
 <section class = "w1100-container">
-  <h2>投稿一覧</h2>
+  <h1>投稿一覧</h1>
   <% @posts.each do |post| %>
-  <section class = post-container>
-        <%= attachment_image_tag post.user, :profile_image, class: "profile_image", fallback: "no_image.jpg", size: '40x40' %>
+  <section class = "post-container">
+        <%= attachment_image_tag post.user, :profile_image, class: "profile_image m-2", fallback: "no_image.jpg", size: '40x40' %>
       <div class="d-inline-block align-middle">
         <p class="post-top-element d-inline" id = "post-username" ><%= post.user.username %></p>
         <p class="post-top-element d-inline" id = "post-location" ><%= post.location %></p>
@@ -11,8 +11,18 @@
         <%= attachment_image_tag post, :post_image, class: "d-block", style: "margin: 0 auto ;", size: '400x400' %>
       <div>
         <%= simple_format post.body, id: "post-body" %>
-        <p id = "post-created-at"><%= post.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+        <p class = "pb-1" id = "post-created-at"><%= post.created_at.strftime("%Y-%m-%d %H:%M") %></p>
       </div>
+      <% if current_user.id == post.user.id%>
+        <ul class="mb-0 pl-0 pb-1" style="width:60px; margin-left:auto; ">
+          <%= link_to edit_post_path(post), class: " d-inline-block" do %>
+              <i class="fas fa-pen post-font-awesome"></i>
+          <% end %>
+          <%= link_to post_path(post), class: "d-inline-block", method: :delete do %>
+            <i class="far fa-trash-alt post-font-awesome"></i>
+          <% end %>
+        </ul>
+      <% end %>  
   </section>
   <% end %>
   

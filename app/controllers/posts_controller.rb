@@ -7,7 +7,7 @@ class PostsController < ApplicationController
     @post = current_user.posts.build(post_params)
     if @post.save
       flash[:success] = "#{@post.title}を投稿しました"
-      redirect_to post_path(@post)
+      redirect_to posts_path
     else
       render :new
     end
@@ -17,10 +17,6 @@ class PostsController < ApplicationController
     @posts = Post.all.order(id: "DESC")
   end
   
-  def show
-    @post = Post.find(params[:id])
-  end
-  
   def edit
     @post = Post.find(params[:id])
   end
@@ -28,22 +24,22 @@ class PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     if @post.update(post_params)
-      flash[:success] = "投稿を削除しました"
-      redirect_to post_path(@post)
+      flash[:success] = "投稿を更新しました"
+      redirect_to root_path
     else
       render :edit
     end
   end
   
   def destroy
-    post = post.find(params[:id])
+    post = Post.find(params[:id])
     post.destroy
     flash[:success] = "投稿を削除しました"
-    redirect_to user_path(post.user)
+    redirect_to root_path
   end
 
   private
   def post_params
-    params.require(:post).permit(:title, :body, :post_image, :locatio)
+    params.require(:post).permit(:title, :body, :post_image, :location)
   end
 end

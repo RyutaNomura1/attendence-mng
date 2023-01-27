@@ -19,6 +19,7 @@
                     type="button" id="dropdownMenu3" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
               マイページ
+              <%= attachment_image_tag current_user, :profile_image, class: "profile_image ml-1", fallback: "no_image.jpg", size: '30x30' %>
             </button>
             <div class="dropdown-menu dropdown-menu-right">
               <%= link_to "プロフィール", user_path(current_user), class: "dropdown-item text-success"%>      

@@ -9,8 +9,7 @@
     </ul>
   </section>      
   <section class="w800-container d-inline-block">
-    <h1>Users#edit</h1>
-    <p>Find me in app/views/users/edit.html.erb</p>
+
   <%= form_for (@user) do |f| %>
       <%= f.label :username, "名前", class: "label-control text-left" %>
       <%= f.text_field :username, class: 'form-control' %>
@@ -20,7 +19,7 @@
   
     
       <%= f.label :profile,"自己紹介", class: "label-control text-left" %>　　　
-      <%= f.text_field :profile, class: 'form-control' %>
+      <%= f.text_area :profile, class: 'form-control' %>
     
       <%= f.label :email, "メールアドレス", class: "label-control text-left" %>
       <%= f.email_field :email, class: 'form-control' %>

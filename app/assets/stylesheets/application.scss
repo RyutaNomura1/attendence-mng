@@ -12,6 +12,7 @@
  *
  */
 @import "bootstrap";
+@import 'font-awesome';
 
 $mainColor: #218838;
 $bgColor: #efefef;
@@ -36,7 +37,6 @@ img{
 }
 .profile_image{
   border-radius: 50% ;
-  margin:8px;
 }
 
 .side-menu-container {
@@ -182,8 +182,9 @@ footer{
   }
   #post-body{
     font-size: 10px;
-    padding: 8px 10px 4px;
+    padding: 8px 15px 4px;
     margin-bottom: 0;
+    word-wrap: break-word;
   }
   #post-created-at{
     font-size: 10px;
@@ -192,5 +193,51 @@ footer{
     width: 100px;
     margin-left: auto;
   }
+  .post-font-awesome{
+    font-size: 12px;
+    padding-right: 10px;
+    color: $mainColor;
+  }
 }
 
+// プロフィール　user#show
+#profile-container{
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  margin: 0 auto;
+  width: 90%;
+  padding-bottom: 20px;
+  
+  #profile-top{
+    width: 75%;
+    margin: 15px 5px 0 10px;
+  }
+  #profile-profile-edit{
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: $lightBlack;
+    font-size: 12px;
+    padding: 2px;
+    border-radius: 5px;
+    margin-left: 15px;    
+  } 
+  #profile-username{
+    font-size: 20px;
+  }
+  #profile-body{
+    color: $lightBlack;
+    font-size: 12px;
+  }
+  
+} 
+
+#profile-posts-container{
+  width: 90%;
+  margin: 0 auto;
+  #profile-posts-posts{
+    width: 30%;
+    height: 30%;
+    object-fit: cover;
+    margin: 10px 1.4%;
+    
+  }
+  
+}

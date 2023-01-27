@@ -1,16 +1,24 @@
 <section class="w1100-container">
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
-  <section>
-    <%= attachment_image_tag @user, :profile_image, class: "profile_image", fallback: "no_image.jpg", size: '100x100' %>
-    <%= @user.username%>
-    <% if @user.id == current_user.id  %>
-      <%= @user.email %>
-    <% end %>
-    <%= @user.profile %>
-    <%= link_to "編集", edit_user_path(@user), class: "btn btn-primary"%>
+<h1>ユーザー詳細</h1>
+
+  <section id ="profile-container"> 
+    <div class="d-inline-block align-top">
+      <%= attachment_image_tag @user, :profile_image, class: "profile_image m-3", fallback: "no_image.jpg", size: '120x120' %>
+    </div>
+    <div class="d-inline-block" id="profile-top">
+      <p class="d-inline-block" id="profile-username" ><%= @user.username%></p>
+      <% if @user.id == current_user.id  %>
+        <%= link_to edit_user_path(@user), class: "d-inline-block", id: "profile-profile-edit" do%>
+          <span>プロフィールを編集</span><i class="fas fa-pen post-font-awesome"></i>
+        <% end %>
+      <% end %>
+      <p id="profile-body"><%= @user.profile %></p>
+    </div>
   </section>
-  <section>
-    
+  
+  <section id="profile-posts-container">
+    <% @user.posts.each do |post| %>
+      <%= attachment_image_tag post, :post_image, id: "profile-posts-posts"%>
+    <% end %>
   </section>
 </section>
