@@ -8,20 +8,19 @@
       <li><%= link_to "パスワード設定", "#", class: "list-group-item" %></li>
     </ul>
   </section>      
-  <section class="w800-container d-inline-block">
+  <section class="w800-container d-inline-block text-left">
 
   <%= form_for (@user) do |f| %>
-      <%= f.label :username, "名前", class: "label-control text-left" %>
+      <%= f.label :username, "名前", class: "label-control" %>
       <%= f.text_field :username, class: 'form-control' %>
        
-      <%= f.label :profile_image_id, "プロフィール画像", class: "label-control text-left"%><br>
-      <%= f.attachment_field :profile_image %><br>
-  
+      <%= f.label :profile_image_id, "プロフィール画像", class: "label-control"%><br>
+      <%= f.attachment_field :profile_image, class: "pl-3" %><br>
     
-      <%= f.label :profile,"自己紹介", class: "label-control text-left" %>　　　
+      <%= f.label :profile,"自己紹介", class: "label-control" %>　　　
       <%= f.text_area :profile, class: 'form-control' %>
     
-      <%= f.label :email, "メールアドレス", class: "label-control text-left" %>
+      <%= f.label :email, "メールアドレス", class: "label-control" %>
       <%= f.email_field :email, class: 'form-control' %>
       <div class= "submit-position">
         <%= f.submit "プロフィールを更新", class: "btn btn-success" %>

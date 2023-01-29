@@ -8,8 +8,8 @@
     <div class="d-inline-block" id="profile-top">
       <p class="d-inline-block" id="profile-username" ><%= @user.username%></p>
       <% if @user.id == current_user.id  %>
-        <%= link_to edit_user_path(@user), class: "d-inline-block", id: "profile-profile-edit" do%>
-          <span>プロフィールを編集</span><i class="fas fa-pen post-font-awesome"></i>
+        <%= link_to edit_user_path(@user), class: "d-inline-block pl-2", id: "profile-profile-edit" do%>
+          <span>プロフィールを編集</span><i class="fas fa-pen post-font-awesome px-1"></i>
         <% end %>
       <% end %>
       <p id="profile-body"><%= @user.profile %></p>
@@ -17,8 +17,24 @@
   </section>
   
   <section id="profile-posts-container">
-    <% @user.posts.each do |post| %>
-      <%= attachment_image_tag post, :post_image, id: "profile-posts-posts"%>
-    <% end %>
+    <ul class="d-flex flex-wrap p-0">
+      <% @user.posts.each do |post| %>
+        <li data-toggle="modal" data-target=".bd-example-modal-lg">
+          <%= attachment_image_tag post, :post_image, id: "profile-posts-posts"  %>
+        </li>
+      <% end %>
+    </ul>
   </section>
+  
+  <!--モーダル中身-->
+  <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
+       aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        モーダルの中身、<br>
+        のちに記述<br>
+        モーダルに変数を渡さないといけない
+      </div>
+    </div>
+  </div>
 </section>

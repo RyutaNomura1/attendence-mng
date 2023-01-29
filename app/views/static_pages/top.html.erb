@@ -30,7 +30,10 @@
       テキストテキストテキストテキスト    
     </p>  
   </section>
-  <section class="top-new-user">
-    <%= link_to "新規登録する", new_user_path, class: "btn btn-success top-page-btn", id: "top-page-btn" %>
-  </section>
+  
+  <% if current_user.nil? %>
+    <section class="top-new-user">
+      <%= link_to "新規登録する", new_user_path, class: "btn btn-success top-page-btn", id: "top-page-btn" %>
+    </section>
+  <% end %>  
 </div>

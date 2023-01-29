@@ -1,4 +1,7 @@
 class PostsController < ApplicationController
+  before_action :logged_in_user, except: [:index]
+  before_action :correct_user, only: [:edit, :update, :destroy]
+  
   def new
     @post = Post.new
   end
@@ -14,6 +17,9 @@ class PostsController < ApplicationController
   end
   
   def index
+    unless logged_in?
+      redirect_to top_path
+    end
     @posts = Post.all.order(id: "DESC")
   end
   
@@ -24,7 +30,7 @@ class PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     if @post.update(post_params)
-      flash[:success] = "投稿を更新しました"
+      flash[:success] = "#{@post.title}を更新しました"
       redirect_to root_path
     else
       render :edit

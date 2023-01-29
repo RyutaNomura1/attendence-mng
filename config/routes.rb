@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   get "/top", to: "static_pages#top"
   
   resources :users
-  resources :posts, except: [:show]
+  resources :posts, except: [:show] do
+    resource :favorites, only: [:create, :destroy]
+  end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

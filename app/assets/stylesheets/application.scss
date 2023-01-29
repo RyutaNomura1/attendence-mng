@@ -17,23 +17,34 @@
 $mainColor: #218838;
 $bgColor: #efefef;
 $lightBlack: #525252;
+$conShadow: 0px 0px 5px rgba(0, 0, 0, 0.1);  
 
-@mixin container{
+@mixin page-container{
   margin: 30px auto;
   padding: 40px;
   background-color: white;
   border-radius: 8px;
+  box-shadow: $conShadow ;
 }
 
 //基本設定
 body{
   background-color: $bgColor;
-  ul {
+  ul{
+    padding-left: none ;
+  }
+  li{
   list-style: none;
 }
-img{
-  object-fit: cover;
-}
+  img{
+    object-fit: cover;
+  }
+  a{
+    color: black;
+    &:hover{
+      text-decoration: none;
+    }
+  }
 }
 .profile_image{
   border-radius: 50% ;
@@ -55,12 +66,12 @@ img{
 }
 .w800-container {
   width: 800px;
-  @include container
+  @include page-container
 }
 
 .w1100-container {
   max-width: 1100px;
-  @include container
+  @include page-container
 }
 // 入力フォーム
 
@@ -71,7 +82,7 @@ textarea.form-control {
 }
 .label-control{
   font-size: 18px;
-  margin: 30px 8px 8px;
+  margin: 30px 8px 12px;
   font-weight: bold;
 }
 .submit-position{
@@ -160,33 +171,37 @@ footer{
 
 //投稿一覧
 .post-container{
-  width: 420px;
+  width: 520px;
   margin: 0 auto 10px;
   border: 0.5px solid rgba(221, 221, 221, 0.5 );
   border-radius: 5px; 
-  
+  box-shadow: $conShadow ;
   .post-top-element{
     margin: 0;
   }
-  #post-username{
+  .post-username{
     font-size: 13px;
     padding-right: 10px;
+    color: black;
+    &:hover{
+      color: $lightBlack;
+    }
   }
-  #post-location{
+  .post-location{
     font-size: 10px;
     color:$lightBlack;
   }
-  #post-title{
+  .post-title{
     font-size: 14px;
     font-weight: bold;    
   }
-  #post-body{
+  .post-body{
     font-size: 10px;
-    padding: 8px 15px 4px;
+    padding: 8px 20px 4px;
     margin-bottom: 0;
     word-wrap: break-word;
   }
-  #post-created-at{
+  .post-created-at{
     font-size: 10px;
     margin-bottom: 0;
     color: $lightBlack;
@@ -194,9 +209,13 @@ footer{
     margin-left: auto;
   }
   .post-font-awesome{
-    font-size: 12px;
-    padding-right: 10px;
-    color: $mainColor;
+    font-size: 15px;
+    padding-right: 8px;
+    color: green;
+  }
+  .post-favorite-only{
+    width: 50px;
+    margin-left: auto;
   }
 }
 
@@ -209,7 +228,7 @@ footer{
   
   #profile-top{
     width: 75%;
-    margin: 15px 5px 0 10px;
+    margin: 15px 0.5% 0;
   }
   #profile-profile-edit{
     border: 1px solid rgba(0, 0, 0, 0.1);
@@ -232,12 +251,28 @@ footer{
 #profile-posts-container{
   width: 90%;
   margin: 0 auto;
-  #profile-posts-posts{
+  & li{
     width: 30%;
-    height: 30%;
-    object-fit: cover;
-    margin: 10px 1.4%;
+    margin: 1.66%;
+    position: relative;
     
+    &:before{
+      content: "";
+      display: block;  
+      padding-top: 100%;     
+    }
+  
+  }
+  #profile-posts-posts{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  object-fit: cover;  
   }
   
 }

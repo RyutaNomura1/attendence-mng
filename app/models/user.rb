@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :posts, dependent: :destroy
+  has_many :favorites, dependent: :destroy
   has_secure_password
   before_save :email_downcase
   validates :username, presence: true, length: {maximum: 50 }
@@ -9,8 +10,14 @@ class User < ApplicationRecord
                     uniqueness: {case_sensitive: false}
   validates :profile, length: {maximum: 200}
   attachment :profile_image
+  
+  def already_favorited?(post)
+    self.favorites.exists?(post_id: post.id)
+  end
+    
     private
     def email_downcase
       self.email = email.downcase
     end
+    
 end
