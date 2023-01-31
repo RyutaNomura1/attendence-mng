@@ -14,4 +14,11 @@ class ApplicationController < ActionController::Base
         flash[:danger] = "その機能はユーザー本人しか利用できません"
       end
     end
+    
+    def correct_post_user
+      unless current_user == User.find_by(id: Post.find(params[:id]).user_id)
+        redirect_to root_path
+        flash[:danger] = "その機能はユーザー本人しか利用できません"
+      end
+    end
 end

@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     user = User.find_by_email(params[:session][:email])
     if user && user.authenticate(params[:session][:password])
       session[:user_id] = user.id
-      flash[:success] = "#{user.username}、ようこそSharevelへ"
+      flash[:success] = "#{user.username}さん、ようこそSharevelへ"
       redirect_to root_path
     else
       flash.now[:danger] = "有効な組み合わせではありません"
