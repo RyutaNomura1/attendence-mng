@@ -43,6 +43,7 @@ body{
     color: black;
     &:hover{
       text-decoration: none;
+      color: black;
     }
   }
 }
@@ -180,17 +181,16 @@ footer{
 }
 
 //投稿一覧
-.post-container{
+.list-container{
   width: 520px;
-  margin: 0 auto 10px;
-  border: 0.5px solid rgba(221, 221, 221, 0.5 );
+  margin: 0 auto 20px;
   border-radius: 5px; 
   box-shadow: $conShadow ;
-  .post-top-element{
+  .list-top-element{
     margin: 0;
   }
-  .post-username{
-    font-size: 13px;
+  .list-username{
+    font-size: 14px;
     padding-right: 10px;
     color: black;
     &:hover{
@@ -198,20 +198,21 @@ footer{
     }
   }
   .post-location{
-    font-size: 10px;
+    font-size: 11px;
     color:$lightBlack;
+    margin-left: 10px;
   }
   .post-title{
     font-size: 14px;
     font-weight: bold;    
   }
   .post-body{
-    font-size: 10px;
+    font-size: 12px;
     padding: 8px 20px 4px;
     margin-bottom: 0;
     word-wrap: break-word;
   }
-  .post-created-at{
+  .list-created-at{
     font-size: 10px;
     margin-bottom: 0;
     color: $lightBlack;
@@ -227,7 +228,24 @@ footer{
     width: 50px;
     margin-left: auto;
   }
+  .list-question-title{
+    font-size: 20px;
+    font-weight: bold;
+    &:hover{
+      color: #14c109;
+    }
+  }
+  .list-question-body{
+    font-size: 15px; 
+    padding: 5px 20px 0px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
 }
+
+
 
 // プロフィール　user#show
 #profile-container{

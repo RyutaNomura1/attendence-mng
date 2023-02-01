@@ -1,5 +1,10 @@
 class QuestionsController < ApplicationController
-
+  
+  def show
+    @question = Question.find(params[:id])
+    @answer = Answer.new
+  end
+  
   def new
     @question = Question.new
   end
@@ -7,7 +12,7 @@ class QuestionsController < ApplicationController
   def create
     @question = current_user.questions.build(question_params)
     if @question.save
-      flash[:success] = "#{@question.question_title}を投稿しました"
+      flash[:success] = "質問「#{@question.question_title}」を投稿しました"
       redirect_to root_path
     else 
       render "new"
@@ -21,7 +26,7 @@ class QuestionsController < ApplicationController
   def update
     question = Question.find(params[:id])
     if question.update(question_params)
-      flash[:success] = "#{question.question_title}を更新しました"
+      flash[:success] = "質問「#{question.question_title}」を更新しました"
       redirect_to root_path     
     else
       render "edit"
@@ -29,7 +34,7 @@ class QuestionsController < ApplicationController
   end
   
   def destroy
-    question = Post.find(params[:id])
+    question = Question.find(params[:id])
     question.destroy
     flash[:danger] = "質問を削除しました"
     redirect_to root_path

@@ -23,7 +23,6 @@ class PostsController < ApplicationController
     posts = Post.all
     questions = Question.all
     @lists =  posts | questions
-    # @lists = [].concat(posts, questions)
     @lists.sort!{ |a, b| b.created_at <=> a.created_at }    
     
   end

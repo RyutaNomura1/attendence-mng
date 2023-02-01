@@ -36,7 +36,6 @@ class UsersController < ApplicationController
     redirect_to user_path(@user)
   end
   
-  
   private 
     def create_user_params
       params.require(:user).permit(:username,:email, :password,
