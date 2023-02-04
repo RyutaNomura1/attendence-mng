@@ -1,0 +1,9 @@
+<% if current_user.already_helpful?(answer)%>
+  <%= link_to destroy_helpful_path(answer), method: :delete, remote: true do %>
+    <i class="fa fa-thumbs-up question-show-answer-helpful-on "><span class="pl-1">役に立つ <%= answer.helpfuls.count %></span></i> 
+  <% end %>
+<% else %>
+  <%= link_to create_helpful_path(answer), method: :post, remote: true do %>
+    <i class="fa fa-thumbs-up question-show-answer-helpful-off"><span class="pl-1">役に立つ <%= answer.helpfuls.count %></span></i>
+  <% end %>
+<% end %>

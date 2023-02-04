@@ -1,14 +1,14 @@
 class HelpfulsController < ApplicationController
+  before_action :logged_in_user, only: [:create, :destroy]
+
   def create
-    @question = Question.find(params[:question_id])
-    current_user.helpfuls.create(question_id: @question.id)
-    redirect_back(fallback_location: root_path)
+    @answer = Answer.find(params[:answer_id])
+    current_user.helpfuls.create(answer_id: @answer.id)
   end
   
   def destroy
-    @question = Question.find(params[:question_id])
-    helpful = current_user.helpfuls.find_by(question_id: @question.id)
+    @answer = Answer.find(params[:answer_id])
+    helpful = current_user.helpfuls.find_by(answer_id: @answer.id)
     helpful.destroy
-    redirect_back(fallback_location: root_path)
   end 
 end

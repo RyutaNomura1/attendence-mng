@@ -1,0 +1,81 @@
+<div class="d-flex justify-content-center my-5">
+  <!--質問詳細・回答-->
+  <section class="question-show-main-container">
+    <section class="question-show-question-container mr-2">
+        <%= link_to user_path(@question.user) do %>
+          <%= attachment_image_tag @question.user, :profile_image, class: "profile_image mt-3 mr-2 ml-3  mb-0", fallback: "no_image.jpg", size: '40x40' %>
+        <% end %>
+      <div class="d-inline-block align-middle pt-3">
+        <%= link_to user_path(@question.user) do %>
+          <p class="list-top-element d-inline list-username pr-0 "><%= @question.user.username %></p>
+        <% end %><span>さんの質問</span><i class="fa fa-question-circle "></i> 
+      <p class="list-top-element question-show-question-title "><%= @question.question_title %></p>
+      </div>
+      <%= simple_format @question.question_body, class: "question-show-question-body" %>
+      <div class="text-right">
+        <p class = "question-created-at mb-0"><%= @question.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+        <% if current_user == @question.user %>
+          <%= link_to question_path(@question), data: {confirm: "質問を削除しますか？"}, method: :delete do %>
+            <i class="far fa-trash-alt pr-4 pb-2"></i>
+          <% end %>
+        <% end %>  
+      </div>
+    </section>
+    
+    <h2 class="my-4 ml-4"><span class="text-success pr-1"><%= @question.answers.count %></span>件の回答</h2> 
+    
+    <!--回答作成-->
+    <section class="question-show-new-answer-container">
+      <!--名前、写真表示-->
+      <div>
+        <%= attachment_image_tag current_user, :profile_image, class: "profile_image mt-3 mr-2 ml-3 mb-0", fallback: "no_image.jpg", size: '40x40' %>
+        <div class="d-inline-block align-middle pt-3">
+          <%= link_to user_path(current_user) do %>
+            <p class="list-top-element d-inline list-username pr-0 "><%= current_user.username %></p>
+          <% end %>
+          <p class="h5 font-weight-bold">質問に回答する</p>
+        </div>
+      </div>
+      <div class="py-2 px-4 text-right">
+        <%= form_for ([@question, @answer]) do |f| %>
+          <%= f.text_area :answer_body, class: 'form-control' %>
+          <%= f.submit "回答を投稿", class: "btn btn-success" %>
+        <% end %>  
+      </div>
+    </section>
+    
+    <!--cssに関しては質問のものを使用-->
+    <% @question.answers.each do |answer| %>
+      <section class="question-show-answer-container">
+        <div>
+          <%= link_to user_path(answer.user) do %>
+            <%= attachment_image_tag answer.user, :profile_image, class: "profile_image mt-3 mr-2 ml-3 mb-0", fallback: "no_image.jpg", size: '40x40' %>
+          <% end %>
+          <div class="d-inline-block align-middle pt-3">
+            <%= link_to user_path(answer.user) do %>
+              <p class="list-top-element d-inline list-username pr-0 "><%= answer.user.username %></p>
+            <% end %><span>さんの回答</span>
+          </div>
+        </div>
+          <%= simple_format answer.answer_body, class: "question-show-question-body" %>
+        <div class="text-right">
+          <p class = "question-created-at mb-0"><%= answer.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+          <div>
+             <span id="helpful-answer-<%= answer.id%>"><%= render "helpfuls/helpful", answer: answer %></span>
+            <% if current_user == answer.user %>
+              <%= link_to question_answer_path(answer), data: {confirm: "回答を削除しますか？"}, method: :delete do %>
+                <i class="far fa-trash-alt pr-3 pb-2"></i>
+              <% end %>
+            <% end %>  
+          </div>
+        </div>
+      </section>
+      <% end %>
+  </section>
+  
+  
+  <!--人気の質問-->
+  <section class="question-show-sub-container d-none">
+    
+  </section>
+</div>

@@ -14,14 +14,13 @@
 @import "bootstrap";
 @import 'font-awesome';
 
-$mainColor: #218838;
-$bgColor: #efefef;
+$mainColor: #28a745;
+$bgColor: #0000000d;
 $lightBlack: #525252;
 $conShadow: 0px 0px 5px rgba(0, 0, 0, 0.1);  
 
 @mixin page-container{
-  margin: 30px auto;
-  padding: 40px;
+
   background-color: white;
   border-radius: 8px;
   box-shadow: $conShadow ;
@@ -30,30 +29,37 @@ $conShadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
 //基本設定
 body{
   background-color: $bgColor;
-  ul{
-    padding-left: none ;
-  }
-  li{
-  list-style: none;
 }
-  img{
-    object-fit: cover;
-  }
-  a{
-    color: black;
-    &:hover{
-      text-decoration: none;
-      color: black;
-    }
-  }
+ul{
+  padding-left: none ;
+}
+li{
+list-style: none;
+}
+img{
+  object-fit: cover;
+}
+textarea{
+  resize: none;
+}
+a{
+  color: inherit ;
+  text-decoration: none;
+  &:hover{
+    color: inherit;
+    text-decoration: none;
+  } 
 }
 .profile_image{
   border-radius: 50% ;
 }
+.alert{
+  margin-bottom: 0;
+}
 
 .side-menu-container {
   width: 200px;
-  background-color:white;
+  background-color:white ;
   margin-top:30px;
   border-radius: 8px;
   padding:15px;
@@ -65,14 +71,27 @@ body{
     }
   }
 }
+
+.w300-container {
+  width: 300px;
+  @include page-container
+  margin: 30px auto;
+  padding: 40px;
+}
+
 .w800-container {
   width: 800px;
   @include page-container
+  margin: 30px auto;
+  padding: 40px;
 }
 
 .w1100-container {
   max-width: 1100px;
   @include page-container
+  margin: 30px auto;
+  padding: 40px;
+  
 }
 // 入力フォーム
 
@@ -102,33 +121,37 @@ textarea.form-control {
   margin: 0 auto;
   text-align: center;
 }
+
+
 // header
+header{
+  background-color: #a7a7a72b;
+  & button {
+    background-color: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 0 5px;
+    color: green;
+    border-radius: 5px;
+    font-weight: bold;
+    box-shadow: $conShadow ;
+    &:hover{
+      background-color: $mainColor;
+      color: white;
+    }
+  } 
+}
 #sharevel-header{
   font-size: 36px ;
+  font-weight: bold;
   font-family: cursive;
   transition: all 0.7s;
+  color: green;
   &:hover{
-    transform: scale(1.05);
+    transform: scale(1.02);
   }
-}
-.btn.btn-success.dropdown-toggle{
-  padding: 0.375rem 0.75rem;
-  font-weight: 400;
-  font-size: 1rem;
-  border: none;
 }
 
-.nav-item-header {
-  transition: all 0.15s;
-  width: 150px;
-  text-align:center;
-  &:hover{
-    background-color: $mainColor;
-    border-color: #1e7e34;
-    border-radius: 0.25rem;
-    
-  }
-}
 //footer
 footer{
   height: 60px;
@@ -180,72 +203,134 @@ footer{
   font-size: 18px;
 }
 
-//投稿一覧
-.list-container{
-  width: 520px;
-  margin: 0 auto 20px;
-  border-radius: 5px; 
-  box-shadow: $conShadow ;
-  .list-top-element{
-    margin: 0;
+//投稿一覧 *user/show question/showでも一部使用
+.list-header-image{
+  background-image: url(background_image3.png);
+  background-size: cover;
+  width: 100%;
+}
+
+.list-page-container{
+  margin: 20px 0;
+  justify-content: center;
+}
+.list-left-container{
+  width: 200px ;
+  @include page-container
+}
+.list-center-container{
+  margin: 0 25px; 
+}
+.list-choose-menu-container{
+  width: 540px;
+  margin: 0 auto 10px;
+  ul{
+    text-align: center;
+    padding: 0;
   }
-  .list-username{
-    font-size: 14px;
-    padding-right: 10px;
-    color: black;
-    &:hover{
-      color: $lightBlack;
-    }
-  }
-  .post-location{
-    font-size: 11px;
-    color:$lightBlack;
-    margin-left: 10px;
-  }
-  .post-title{
-    font-size: 14px;
-    font-weight: bold;    
-  }
-  .post-body{
-    font-size: 12px;
-    padding: 8px 20px 4px;
-    margin-bottom: 0;
-    word-wrap: break-word;
-  }
-  .list-created-at{
-    font-size: 10px;
-    margin-bottom: 0;
-    color: $lightBlack;
+  li{
+    font-size: 17px;
     width: 100px;
-    margin-left: auto;
-  }
-  .post-font-awesome{
-    font-size: 15px;
-    padding-right: 8px;
-    color: green;
-  }
-  .post-favorite-only{
-    width: 50px;
-    margin-left: auto;
-  }
-  .list-question-title{
-    font-size: 20px;
+    background-color: white;
+    padding: 3px 0;
+    color: $mainColor;
     font-weight: bold;
     &:hover{
-      color: #14c109;
+    box-sizing: border-box;
+    border-bottom: 3px solid $mainColor ;
     }
-  }
-  .list-question-body{
-    font-size: 15px; 
-    padding: 5px 20px 0px;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
   }
 }
 
+.list-container{
+  width: 600px;
+  background-color: white;
+  margin: 0 auto 20px;
+  border-radius: 5px; 
+  box-shadow: $conShadow ;
+}
+  
+.list-top-element{
+  margin: 0;
+}
+.list-username{
+  font-size: 14px;
+  padding-right: 10px;
+  color: black;
+  &:hover{
+    color: $lightBlack;
+  }
+}
+.post-location{
+  font-size: 11px;
+  color:$lightBlack;
+  margin-left: 10px;
+}
+.post-title{
+  font-size: 15px;
+  font-weight: bold;    
+}
+.post-body{
+  font-size: 13px;
+  padding: 8px 25px 4px;
+  margin-bottom: 0;
+  word-wrap: break-word;
+}
+.list-created-at{
+  font-size: 11px;
+  margin-bottom: 0;
+  color: $lightBlack;
+  width: 100px;
+  margin-left: auto;
+}
+.post-font-awesome{
+  font-size: 15px;
+  padding-right: 8px;
+  color: black;
+}
+.post-favorite-only{
+  width: 50px;
+  margin-left: auto;
+}
+.list-question-title{
+  font-size: 20px;
+  font-weight: bold;
+  &:hover{
+    color: #14c109;
+  }
+}
+.list-question-body{
+  font-size: 15px; 
+  padding: 5px 20px 0px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
 
+.list-right-container{
+  width: 300px;
+  color: black;
+}
+.right-question-list-container{
+  background-color: white;
+  padding: 3px 8px;
+  margin: 8px 0;
+  border-radius: 3px;
+  p{
+    margin-bottom: 0;
+  }
+  .right-question-list-created-at{
+    color: $lightBlack;
+    font-size: 12px;
+  }
+}
+.right-question-list{
+  font-size: 14px;
+  &:hover{
+  text-decoration: underline;
+  }
+}
 
 // プロフィール　user#show
 #profile-container{
@@ -302,5 +387,109 @@ footer{
   margin: auto;
   object-fit: cover;  
   }
+}
   
+
+// 質問詳細questions/show
+//左側を囲うcontainer
+.question-show-main-container{
+  width: 800px;
+}
+//質門の内容を表示
+.question-show-question-container{
+  @include page-container
+}
+.question-show-question-title{
+  font-weight: bold;
+  font-size: 27px;
+}
+.question-show-question-body{
+  font-size: 18px;
+  padding: 15px 25px 5px;
+  line-height: 30px;
+}
+.question-created-at{
+  font-size: 15px;
+  margin-right: 20px;
+}
+
+//answer作成
+.question-show-new-answer-container{
+  @include page-container
+  margin-bottom: 20px;
+  .btn-success{
+    font-size: 14px;
+    margin-top: 15px;
+  }
+  textarea{
+    resize: vertical;
+    height: 150px;
+  }
+}
+//answer一覧
+.question-show-answer-container{
+  @include page-container
+  margin-bottom: 20px;
+}
+.question-show-answer-helpful-on{
+  border: 1px solid $mainColor;
+  background-color: $mainColor;
+  font-weight: bold;
+  color: white;
+  padding: 5px 10px;
+  margin: 10px 15px 10px;
+  border-radius: 5px;
+}
+.question-show-answer-helpful-off{
+  border: 1px solid $mainColor;
+  background-color: $white;  
+  font-weight: bold;
+  color: $mainColor;
+  padding: 5px 10px;
+  margin: 10px 15px 10px;
+  border-radius: 5px;
+  
+}
+
+//右側を囲う
+.question-show-sub-container{
+  @include page-container
+  width: 280px;
+}
+
+// コメント機能用
+.post-comment-container{
+  margin: 10px 4% 0;
+  p{
+    margin-bottom: 0;
+  }
+}
+.post-comment-create-textarea{
+  font-size: 11px;
+  width: 86%;
+  border: none;
+  border-bottom: 1px solid #dee2e6;
+  color: black;
+  &:focus{
+    outline: none;
+  }
+}
+.post-comment-create-input{
+    font-size: 11px;
+    vertical-align: top;
+    border: none;
+    background-color: white;
+    color: $mainColor;
+    font-weight: 700;
+}
+
+.post-comment-username{
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  
+}
+.post-comment-comment{
+  font-size: 11px;
+  display: inline-block;
 }

@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
-  
+  before_action :logged_in_user
+  before_action :correct_question_user, only: [:edit, :update ,:destroy]  
   def show
     @question = Question.find(params[:id])
     @answer = Answer.new

@@ -20,11 +20,16 @@ class PostsController < ApplicationController
     unless logged_in?
       redirect_to top_path
     end
+    # 投稿を表示用インスタンス変数
     posts = Post.all
     questions = Question.all
     @lists =  posts | questions
-    @lists.sort!{ |a, b| b.created_at <=> a.created_at }    
-    
+    @lists.sort!{ |a, b| b.created_at <=> a.created_at }
+    # 右ページの最新質問用インスタンス変数
+    @right_questions = Question.order(id: :DESC).first(5)
+    # モーダルコメント作成用インスタンス変数
+    @comment = current_user.comments.new
+    # コメント表示用
   end
   
   def edit

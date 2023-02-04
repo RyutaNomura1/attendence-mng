@@ -1,9 +1,13 @@
 class User < ApplicationRecord
   has_many :posts, dependent: :destroy
+  has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :questions, dependent: :destroy
   has_many :helpfuls, dependent: :destroy
   has_many :answers, dependent: :destroy
+  
+  attr_accessor :remember_token
+  
   has_secure_password
   before_save :email_downcase
   validates :username, presence: true, length: {maximum: 50 }
@@ -13,14 +17,42 @@ class User < ApplicationRecord
                     uniqueness: {case_sensitive: false}
   validates :profile, length: {maximum: 200}
   attachment :profile_image
+
+  # 文字列のハッシュ値を返す
+  def User.digest(string)
+    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
+                                                  BCrypt::Engine.cost
+    BCrypt::Password.create(string, cost: cost)
+  end
+
+  # ランダムなトークンを返す
+  def User.new_token
+    SecureRandom.urlsafe_base64
+  end
   
+  #トークンをダイジェスト化してDBに保存する
+  def remember
+    self.remember_token = User.new_token
+    update_attribute(:remember_digest, User.digest(remember_token))  
+  end
+  
+  def forget
+    update_attribute(:remember_digest, nil)
+  end
+    # 渡されたトークンがダイジェストと一致したらtrueを返す
+  def authenticated?(remember_token)
+    BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  end
+
+  # 既にいいねしているか確認
   def already_favorited?(post)
     self.favorites.exists?(post_id: post.id)
   end
 
-  # def already_helpful?(question)
-  #   self.helpfuls.exists?(question_id: question.id)
-  # end
+  # 既に役立つを押しているか確認
+  def already_helpful?(answer)
+    self.helpfuls.exists?(answer_id: answer.id)
+  end
   
     private
     def email_downcase

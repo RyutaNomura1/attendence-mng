@@ -1,23 +1,29 @@
 <header>
-  <nav class="navbar navbar-expand-lg navbar-success bg-success">
-    <%= link_to "Sharevel", root_path, class: "navbar-brand text-white", id: "sharevel-header"%>
+  <nav class="navbar navbar-expand-lg">
+    <%= link_to "Sharevel", root_path, class: "navbar-brand", id: "sharevel-header"%>
     
   
-    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-      <ul class="navbar-nav">
+    <div class="collapse navbar-collapse justify-content-end " id="navbarSupportedContent">
       <% if logged_in? %>
+      <!--ログイン時-->
+      <ul class="navbar-nav">
+      <%= link_to root_path do %>
         <li class="nav-item">
-          <%= link_to "投稿を一覧", root_path, class: "nav-link text-white nav-item-header" %>
-        </li>
-      
-        <li class="nav-item">
-          <div class="dropdown open nav-item-header">
-            <button class="btn btn-success dropdown-toggle"
-                    type="button" id="dropdownMenu3" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-              投稿をする
+          <div>
+            <button class="dropdown">
+              投稿を一覧<i class="fa fa-globe fa-lg pl-1"></i> 
             </button>
-            <div class="dropdown-menu dropdown-menu-right">
+          </div>
+        </li>
+      <% end %>
+        <li class="nav-item">
+          <div class="dropdown">
+            <button class="dropdown-toggle"
+                    type="button"  data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+              投稿をする<i class="fa fa-edit fa-lg pl-1 "></i> 
+            </button>
+            <div class="dropdown-menu">
               <%= link_to "旅をシェア", new_post_path, class: "dropdown-item text-success"%>      
               <%= link_to "旅人に質問", new_question_path, class: "dropdown-item text-success" %>
             </div>
@@ -27,25 +33,25 @@
         <li class="nav-item">
           <!--ドロップダウン用-->
           <div class="dropdown open">
-            <button class="btn btn-success dropdown-toggle"
-                    type="button" id="dropdownMenu3" data-toggle="dropdown"
+            <button class="dropdown-toggle"
+                    type="button"data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
-              マイページ
-              <%= attachment_image_tag current_user, :profile_image, class: "profile_image ml-1", fallback: "no_image.jpg", size: '30x30' %>
+              マイページ<i class="fa fa-user fa-lg pl-1"></i> 
             </button>
-            <div class="dropdown-menu dropdown-menu-right">
-              <%= link_to "プロフィール", user_path(current_user), class: "dropdown-item text-success"%>      
-              <%= link_to "ログアウト", logout_path, method: :delete, class: "dropdown-item text-success" %>
+            <div class="dropdown-menu">
+              <%= link_to "プロフィール", user_path(current_user), class: "dropdown-item"%>      
+              <%= link_to "ログアウト", logout_path, method: :delete, class: "dropdown-item" %>
             </div>
           </div>
         </li>
+        <!--ログアウト時-->
       <% else %>
-        <li class="nav-item">
-          <%= link_to "新規登録", new_user_path, class: "nav-link text-white nav-item-header" %>
-        </li>   
-        <li class="nav-item">
-          <%= link_to "ログイン", login_path, class: "nav-link text-white nav-item-header" %>
-        </li>   
+        <button class="nav-item py-2">
+          <%= link_to "新規登録", new_user_path, class: "nav-link" %>
+        </button>   
+        <button class="nav-item py-2">
+          <%= link_to "ログイン", login_path, class: "nav-link" %>
+        </button>   
       <% end %>
       </ul>
     </div>

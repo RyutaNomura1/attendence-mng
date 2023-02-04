@@ -1,4 +1,5 @@
 class FavoritesController < ApplicationController
+  before_action :logged_in_user, only: [:create, :destroy]
   def create
     @post = Post.find(params[:post_id])
     current_user.favorites.create(post_id: @post.id)
