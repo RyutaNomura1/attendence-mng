@@ -6,16 +6,11 @@ class AnswersController < ApplicationController
   def create
     @answer = current_user.answers.build(answer_params)
     @answer.question_id = Question.find(params[:question_id]).id
-    if @answer.save
-      redirect_to question_path(@question)
-    else
-      render "questions/show"
-    end
+    @answer.save
   end
   
   def destroy
     Answer.find(params[:id]).destroy
-    redirect_to question_path(@question)
   end
   
   

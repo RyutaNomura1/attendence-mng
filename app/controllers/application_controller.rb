@@ -16,21 +16,24 @@ class ApplicationController < ActionController::Base
     end
     
     def correct_post_user
-      unless current_user == User.find_by(id: Post.find(params[:id]).user_id)
+      post = Post.find(params[:id])
+      unless current_user == post.user
         redirect_to root_path
         flash[:danger] = "その機能はユーザー本人しか利用できません"
       end
     end
     
     def correct_question_user
-      unless current_user == User.find_by(id: Question.find(params[:id]).user_id)
+      question = Question.find(params[:id])
+      unless current_user == question.user
         redirect_to root_path
         flash[:danger] = "その機能はユーザー本人しか利用できません"
       end
     end    
 
-    def correct_answern_user
-      unless current_user == User.find_by(id: Answer.find(params[:id]).user_id)
+    def correct_answer_user
+      answer = Answer.find(params[:id])
+      unless current_user == answer.user
         redirect_to root_path
         flash[:danger] = "その機能はユーザー本人しか利用できません"
       end

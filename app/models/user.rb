@@ -5,10 +5,27 @@ class User < ApplicationRecord
   has_many :questions, dependent: :destroy
   has_many :helpfuls, dependent: :destroy
   has_many :answers, dependent: :destroy
+  # フォローをした、されたの関係
+  has_many :relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+  has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+  
+  # 一覧画面で使う
+  has_many :followings, through: :relationships, source: :followed
+  has_many :followers, through: :reverse_of_relationships, source: :follower
+  
+  
   
   attr_accessor :remember_token
   
   has_secure_password
+  # パスワードupdate時にはバリデーションがかからないため追加
+  validate(on: :update) do |record|
+    record.errors.add(:password, :blank) unless record.password_digest.present?
+  end
+  validates :password, presence: true
+  validates_length_of :password, maximum: ActiveModel::SecurePassword::MAX_PASSWORD_LENGTH_ALLOWED, on: :update
+  validates_confirmation_of :password, allow_blank: true, on: :update
+  
   before_save :email_downcase
   validates :username, presence: true, length: {maximum: 50 }
   VALID_EMAIL_REGEX =  /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i

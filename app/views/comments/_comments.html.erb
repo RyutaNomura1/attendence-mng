@@ -1,0 +1,13 @@
+<% post.comments.each do |post_comment| %>
+  <div>
+    <%= link_to user_path(post_comment.user) do %>
+      <p class="post-comment-username"><%= post_comment.user.username%></p><span style="font-size:11px;">さん</span>
+    <% end %>  
+    <p class="post-comment-comment"><%= post_comment.comment_body %></p>
+    <% if current_user == post_comment.user %>
+      <%= link_to  post_comment_path(post_comment.post_id, post_comment.id), data: {confirm: "回答を削除しますか？"}, method: :delete, remote: true do %>
+        <i class="far fa-trash-alt" style="font-size:12px;"></i>
+        <% end %>
+    <% end %>
+  </div>
+<% end %>

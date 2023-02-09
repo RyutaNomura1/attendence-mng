@@ -1,0 +1,27 @@
+<%= form_for (user) do |f| %>
+    <%= f.label :username, "名前", class: "label-control" %>
+    <%= f.text_field :username, class: 'form-control' %>
+     
+    <%= f.label :email, "メールアドレス", class: "label-control" %>
+    <%= f.email_field :email, class: 'form-control' %>
+    
+    <%= f.label :profile_image_id, "プロフィール画像", class: "label-control"%><br>
+    <%= f.attachment_field :profile_image, class: "pl-3" %><br>
+  
+    <%= f.label :profile,"自己紹介", class: "label-control" %>　　　
+    <%= f.text_area :profile, class: 'form-control' %>
+    
+    <%= f.label :travel_period, "旅歴", class: "label-control" %>
+    <%= f.text_field :travel_period, class: 'form-control' %>
+     
+    <%= f.label :number_of_countries, "渡航した国の数", class: "label-control"%>
+    <%= f.text_field :number_of_countries, class: "form-control" %>
+    
+    <%= f.label :favorite_country, "好きな国", class: "label-control"%>
+    <%= f.text_field :favorite_country, class: "form-control" %> 
+    
+  
+    <div class= "submit-position">
+      <%= f.submit "プロフィールを更新", class: "btn btn-success" %>
+    </div>  
+<% end %>

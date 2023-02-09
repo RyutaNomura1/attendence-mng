@@ -6,19 +6,44 @@
 
 
 <section class="list-page-container d-flex">
+  
   <section class="list-left-container">
+    <div class="left-category-choose-container">
+      
+      <p class="font-weight-bold text-success h6 pb-1 pl-3 pt-1">カテゴリーから見つける</p>
+        <% @big_categories.each do |big_category|%>
+            <p  class= "left-category-choose-big-categories"><%= link_to big_category[0].big_category, root_path(big_category: big_category[0].big_category) %>
+            <i class="fa fa-chevron-down pl-3 " id= "left-category-dropdown-<%= big_category[0].big_category %>"></i></p>
+            <% big_category.each do |category|%>
+              <div id= "left-category-dropdown-item-<%= big_category[0].big_category %>">
+                <%= link_to category.name, root_path(name: category.name), class: "left-category-choose-name" %>
+              </div>
+             
+          <% end %>
+        <!--ドロップダウン用-->
+          <script>
+            $(function(){
+              $("#left-category-dropdown-item-<%= big_category[0].big_category %>").hide();
+              $("#left-category-dropdown-<%= big_category[0].big_category %>").click(function(){
+                $("#left-category-dropdown-item-<%= big_category[0].big_category %>").toggle();
+              });
+            });
+          </script>
+      <% end %>
+    </div>
     
+      
   </section>
   <!--画面中央のcontainer-->
   <section class="list-center-container">
-    <section class="list-choose-menu-container">
-      <ul class="d-flex">
-        <li>全表示</li>
-        <li>投稿のみ</li>
-        <li>質問のみ</li>
-      </ul>
+    <!--<section class="list-choose-menu-container">-->
+    <!--  <ul class="d-flex">-->
+    <!--    <li><#%= link_to "全表示", root_path %></li>-->
+    <!--    <li><#%= link_to "", root_path %></li>-->
+    <!--    <li><#%= link_to "", root_path %></li>        -->
+    <!--  </ul>-->
       
-    </section>
+    <!--</section>-->
       
     <!--投稿一覧-->
     <% @lists.each do |list| %>
@@ -32,15 +57,18 @@
             <%= link_to user_path(list.user) do %>
               <p class="post-top-element d-inline list-username"><%= list.user.username %></p>
             <% end %>
-            <p class="post-top-element d-inline post-location"><%= list.location %></p>
-            <p class="post-top-element post-title mb-0"><%= list.title %></p>
+              <p class="post-top-element d-inline post-location"><%= list.location %></p>
+              <p class="post-top-element post-title mb-0"><%= list.title %></p>
           </div>
           <span data-toggle="modal" data-target=".bd-example-modal-lg-<%=list.id%>">
             <!--spanはモーダル表示ボタンのため  -->
               <%= attachment_image_tag list, :post_image, class: "d-block", style: "margin: 0 auto ;", size: '540x540' %>
           </span>
-          <div>
+          <div class="ml-4">
             <%= simple_format list.body, class: "post-body" %>
+            <% list.categories.each do |category| %><!--カテゴリーをハッシュタグで表示-->
+              <%= link_to "##{category.name}", root_path(name: category.name), class: "post-category-name-tag" %>
+            <% end %>
             <p class = "pb-1 list-created-at"><%= list.created_at.strftime("%Y-%m-%d %H:%M") %></p>
           </div>
           <!--モダールでいいねが反応しなかったからコメントアウトしたら反応するようになった-->
@@ -110,6 +138,7 @@
             <div>
               <p><%= num %>．<span style="font-weight:500;"><%= question.user.username %></span>さん</p>
               <p><%= question.question_title %></p>
+              <p class="right-question-list-answer-count"><%= question.answers.count %>件の回答</p>
             </div>
           <% end %>
             <div class="text-right right-question-list-created-at">

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_04_023251) do
+ActiveRecord::Schema.define(version: 2023_02_08_065438) do
 
   create_table "answers", force: :cascade do |t|
     t.integer "user_id"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 2023_02_04_023251) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "big_category", null: false
   end
 
   create_table "comments", force: :cascade do |t|
@@ -80,6 +81,13 @@ ActiveRecord::Schema.define(version: 2023_02_04_023251) do
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
+  create_table "relationships", force: :cascade do |t|
+    t.integer "follower_id"
+    t.integer "followed_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "email"
@@ -89,6 +97,9 @@ ActiveRecord::Schema.define(version: 2023_02_04_023251) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "remember_digest"
+    t.string "travel_period"
+    t.string "number_of_countries"
+    t.string "favorite_country"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

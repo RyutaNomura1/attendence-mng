@@ -50,6 +50,9 @@ a{
     text-decoration: none;
   } 
 }
+button:focus{
+  outline: none;
+}
 .profile_image{
   border-radius: 50% ;
 }
@@ -98,10 +101,10 @@ a{
 textarea.form-control {
   resize: none;
   width: 100% ;
-  height: 250px;
+  height: 200px;
 }
 .label-control{
-  font-size: 18px;
+  font-size: 20px;
   margin: 30px 8px 12px;
   font-weight: bold;
 }
@@ -122,10 +125,39 @@ textarea.form-control {
   text-align: center;
 }
 
+// カテゴリー選択
+.category-dropdown-button{
+  border-bottom: 1px solid #dfdfdf;
+  width: 100%;
+  text-align: left;
+  font-size: 17px;
+  margin-bottom: 10px;
+  input{
+    display: inline-block;
+    border: none;
+    background-color: white;
+    padding-right: 0;
+  }
+}
+.category-dropdown-items{
+  background-color: #e1e1e138;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  padding-left: 15px;
+}
+  .each-category-dropdown-item{
+    width: 20%;
+    padding-bottom: 3px;
+    .category-dropdown-item-checkbox{
+      transform: scale(1.2);
+      margin-right: 5px;
+    }
+  }
 
 // header
 header{
-  background-color: #a7a7a72b;
+  background-color: #c4ffd2;
   & button {
     background-color: white;
     border: none;
@@ -149,6 +181,14 @@ header{
   color: green;
   &:hover{
     transform: scale(1.02);
+  }
+}
+.dropdown-item{
+  &:active{
+    background-color: white;
+  }
+  &:hover{
+    background-color: #efefef;
   }
 }
 
@@ -213,34 +253,67 @@ footer{
 .list-page-container{
   margin: 20px 0;
   justify-content: center;
+  align-items: flex-start;
+
 }
+
+// ページ左、カテゴリー
 .list-left-container{
-  width: 200px ;
   @include page-container
+  width: 250px;
+  border-radius: 3px;
+  p{
+    margin-bottom: 0px;
+  }
 }
+
+.left-category-choose-container{
+  margin: 10px 0 15px 0;
+  
+}
+.left-category-choose-big-categories{
+  padding: 10px 0 7px 30px;
+  border-bottom: 1px solid #c1c1c166;
+  font-size: 15px;
+  font-weight: bold;
+  color: $lightBlack;
+  &:hover{
+    color: black;
+  }
+}
+.left-category-choose-name{
+  font-size: 14px;
+  padding: 2px 0 1px 40px;
+  display: inline-block;
+  &:hover{
+    text-decoration: underline;
+  }
+}
+
+
 .list-center-container{
   margin: 0 25px; 
 }
-.list-choose-menu-container{
-  width: 540px;
-  margin: 0 auto 10px;
-  ul{
-    text-align: center;
-    padding: 0;
-  }
-  li{
-    font-size: 17px;
-    width: 100px;
-    background-color: white;
-    padding: 3px 0;
-    color: $mainColor;
-    font-weight: bold;
-    &:hover{
-    box-sizing: border-box;
-    border-bottom: 3px solid $mainColor ;
-    }
-  }
-}
+// .list-choose-menu-container{
+//   width: 540px;
+//   margin: 0 auto 10px;
+//   ul{
+//     text-align: center;
+//     padding: 0;
+//   }
+//   li{
+//     font-size: 17px;
+//     width: 100px;
+//     background-color: white;
+//     padding: 3px 0;
+//     color: $mainColor;
+//     font-weight: bold;
+//     &:hover{
+//     box-sizing: border-box;
+//     border-bottom: 3px solid $mainColor ;
+//     }
+//   }
+// }
 
 .list-container{
   width: 600px;
@@ -272,9 +345,13 @@ footer{
 }
 .post-body{
   font-size: 13px;
-  padding: 8px 25px 4px;
+  padding-top: 8pxx;
   margin-bottom: 0;
   word-wrap: break-word;
+}
+.post-category-name-tag{
+  color: #007bff;
+  font-size: 12px;
 }
 .list-created-at{
   font-size: 11px;
@@ -314,7 +391,7 @@ footer{
 }
 .right-question-list-container{
   background-color: white;
-  padding: 3px 8px;
+  padding: 3px 12px;
   margin: 8px 0;
   border-radius: 3px;
   p{
@@ -322,13 +399,20 @@ footer{
   }
   .right-question-list-created-at{
     color: $lightBlack;
-    font-size: 12px;
+    font-size: 11px;
+  }
+  .right-question-list-answer-count{
+    font-size: 11px; 
+    margin-left: auto;
+    width: 55px;
+    color: $lightBlack;
+    padding-top: 5px;
   }
 }
 .right-question-list{
   font-size: 14px;
   &:hover{
-  text-decoration: underline;
+    text-decoration: underline;
   }
 }
 
@@ -392,7 +476,7 @@ footer{
 
 // 質問詳細questions/show
 //左側を囲うcontainer
-.question-show-main-container{
+.question-show-center-container{
   width: 800px;
 }
 //質門の内容を表示
@@ -459,7 +543,7 @@ footer{
 
 // コメント機能用
 .post-comment-container{
-  margin: 10px 4% 0;
+  margin: 10px 4%;
   p{
     margin-bottom: 0;
   }
@@ -486,7 +570,7 @@ footer{
 .post-comment-username{
   display: inline-block;
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 600;
   
 }
 .post-comment-comment{

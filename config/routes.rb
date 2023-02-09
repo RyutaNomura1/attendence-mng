@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
   get "/top", to: "static_pages#top"
+  
   # helpfulの作成と削除
   post "/answers/:answer_id//helpful", to: "helpfuls#create", as: "create_helpful"
   delete "/answers/:answer_id/helpful", to: "helpfuls#destroy", as: "destroy_helpful"

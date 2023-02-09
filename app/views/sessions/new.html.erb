@@ -4,10 +4,10 @@
     <!--render 'shared/error_messages', object: f.object-->
     <!--エラーが起きたのでコメントアウトしておく-->  
     <%= f.label :email, "メールアドレス", class: "label-control" %>
-    <%= f.email_field :email, class: 'form-control' %>
+    <%= f.email_field :email, class: 'form-control fa', placeholder: "\uf0e0" %>
   
     <%= f.label :password, "パスワード", class: "label-control" %>
-    <%= f.password_field :password, class: 'form-control' %>
+    <%= f.password_field :password, class: 'form-control fa', placeholder: "\uf023" %>
     
     <%= f.label :remember_me, class: "checkbox inline pt-4 pl-1 pb-2" do %>
       <%= f.check_box :remember_me %>

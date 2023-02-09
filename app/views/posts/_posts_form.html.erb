@@ -7,6 +7,37 @@
    
   <%= f.label :post_image, "写真", class: "label-control" %><br>
   <%= f.attachment_field :post_image %><br>
+  
+  <!--カテゴリーチェックボックスの表示-->
+  <%= f.label :category_id, "カテゴリー", class: "label-control" %><br>
+  <div>
+    <% big_categories.each do |big_category| %>
+      <div>
+        <div class="category-dropdown-button" id="form-category-dropdown-<%= big_category[0].big_category %>">
+          <input type="button" value="<%= big_category[0].big_category %>">
+          <i class="fa fa-xs fa-light fa-chevron-down"></i>
+        </div>
+        <div id="form-category-dropdown-item-<%= big_category[0].big_category %>" class="category-dropdown-items">
+          <%= f.collection_check_boxes :category_ids, big_category, :id , :name do |b| %>
+            <div class="each-category-dropdown-item">
+              <%= b.check_box class: "category-dropdown-item-checkbox"%>
+              <%= b.text %>
+            </div>  
+          <% end %>
+        </div>
+      </div>
+          <!--ドロップダウン用のjquery-->
+          <script>
+            $(function(){
+              $("#form-category-dropdown-item-<%= big_category[0].big_category %>").hide();
+              $("#form-category-dropdown-<%= big_category[0].big_category %>").click(function(){
+                $("#form-category-dropdown-item-<%= big_category[0].big_category %>").toggle();
+              });
+            });
+          </script>
+    <% end %>
+  </div>
+  
 
   <%= f.label :body, "内容", class: "label-control" %>　　　
   <%= f.text_area :body, class: 'form-control' %>

@@ -1,0 +1,4 @@
+<!--render内を更新-->
+$("#ajax-for-comments").html("<%= j(render 'comments/comments', post: @post)%>")
+<!--入力欄を空にする-->
+$(".post-comment-create-textarea").val('');

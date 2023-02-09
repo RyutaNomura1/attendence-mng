@@ -1,6 +1,8 @@
 <div class="d-flex justify-content-center my-5">
   <!--質問詳細・回答-->
-  <section class="question-show-main-container">
+  
+  <!--画面中央の囲い-->
+  <section class="question-show-center-container">
     <section class="question-show-question-container mr-2">
         <%= link_to user_path(@question.user) do %>
           <%= attachment_image_tag @question.user, :profile_image, class: "profile_image mt-3 mr-2 ml-3  mb-0", fallback: "no_image.jpg", size: '40x40' %>
@@ -37,40 +39,17 @@
         </div>
       </div>
       <div class="py-2 px-4 text-right">
-        <%= form_for ([@question, @answer]) do |f| %>
-          <%= f.text_area :answer_body, class: 'form-control' %>
+        <%= form_for [@question, @answer], remote: true do |f|%>
+          <%= f.text_area :answer_body, class: 'form-control question-answer-create-textarea' %>
           <%= f.submit "回答を投稿", class: "btn btn-success" %>
-        <% end %>  
+        <% end %> 
       </div>
     </section>
     
     <!--cssに関しては質問のものを使用-->
-    <% @question.answers.each do |answer| %>
-      <section class="question-show-answer-container">
-        <div>
-          <%= link_to user_path(answer.user) do %>
-            <%= attachment_image_tag answer.user, :profile_image, class: "profile_image mt-3 mr-2 ml-3 mb-0", fallback: "no_image.jpg", size: '40x40' %>
-          <% end %>
-          <div class="d-inline-block align-middle pt-3">
-            <%= link_to user_path(answer.user) do %>
-              <p class="list-top-element d-inline list-username pr-0 "><%= answer.user.username %></p>
-            <% end %><span>さんの回答</span>
-          </div>
-        </div>
-          <%= simple_format answer.answer_body, class: "question-show-question-body" %>
-        <div class="text-right">
-          <p class = "question-created-at mb-0"><%= answer.created_at.strftime("%Y-%m-%d %H:%M") %></p>
-          <div>
-             <span id="helpful-answer-<%= answer.id%>"><%= render "helpfuls/helpful", answer: answer %></span>
-            <% if current_user == answer.user %>
-              <%= link_to question_answer_path(answer), data: {confirm: "回答を削除しますか？"}, method: :delete do %>
-                <i class="far fa-trash-alt pr-3 pb-2"></i>
-              <% end %>
-            <% end %>  
-          </div>
-        </div>
-      </section>
-      <% end %>
+    <div id ="ajax-for-answers">
+      <%= render "answers/answers", question: @question %>
+    </div>
   </section>
   
   
