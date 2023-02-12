@@ -36,14 +36,6 @@
   </section>
   <!--画面中央のcontainer-->
   <section class="list-center-container">
-    <!--<section class="list-choose-menu-container">-->
-    <!--  <ul class="d-flex">-->
-    <!--    <li><#%= link_to "全表示", root_path %></li>-->
-    <!--    <li><#%= link_to "", root_path %></li>-->
-    <!--    <li><#%= link_to "", root_path %></li>        -->
-    <!--  </ul>-->
-      
-    <!--</section>-->
       
     <!--投稿一覧-->
     <% @lists.each do |list| %>
@@ -70,22 +62,6 @@
               <%= link_to "##{category.name}", root_path(name: category.name), class: "post-category-name-tag" %>
             <% end %>
             <p class = "pb-1 list-created-at"><%= list.created_at.strftime("%Y-%m-%d %H:%M") %></p>
-          </div>
-          <!--モダールでいいねが反応しなかったからコメントアウトしたら反応するようになった-->
-          
-          <!--  <ul class="mb-0 pr-3 pb-1 text-right">-->
-          <!--    <div class="post-font-awesome d-inline-block" id="favorite-post-<%= list.id%>">-->
-          <!--      <%= render "favorites/favorite", post: list %>-->
-          <!--    </div>-->
-          <!--<% if current_user.id == list.user.id%>-->
-          <!--    <%= link_to edit_post_path(list), class: " d-inline-block" do %>-->
-          <!--        <i class="fas fa-pen fa-lg post-font-awesome"></i>-->
-          <!--    <% end %>-->
-          <!--    <%= link_to post_path(list), class: "d-inline-block", data: {confirm: "投稿を削除しますか？"}, method: :delete do %>-->
-          <!--      <i class="far fa-trash-alt fa-lg post-font-awesome"></i>-->
-          <!--    <% end %>-->
-          <!--  </ul>-->
-          <!--<% end %>  -->
         </section>
         
         <!--投稿写真を押したときよう-->
@@ -127,29 +103,65 @@
     <% end %>
   </section>
   
-  <!--右側、質問に答える-->
-  <section class="list-right-container mt-5">
-    <div style="font-weight: 600;">最新の質問に答える</div>
-      <% num =0 %>
-      <% @right_questions.each do |question| %>
-      <% num +=1 %>
-        <div class="right-question-list-container">
-          <%=link_to question_path(question), class: "right-question-list" do %>
-            <div>
-              <p><%= num %>．<span style="font-weight:500;"><%= question.user.username %></span>さん</p>
-              <p><%= question.question_title %></p>
-              <p class="right-question-list-answer-count"><%= question.answers.count %>件の回答</p>
-            </div>
-          <% end %>
-            <div class="text-right right-question-list-created-at">
-              <p class="d-inline-blockm-0"><%= question.created_at.strftime("%Y-%m-%d") %></p>
-            </div>  
-        </div>
+  <section class="list-right-container">
     
-      <% end %>
-        
-        
-  </section>
+    
+    <!--プロフィールの表示-->
+    <% if logged_in? %>
+    <section class="list-right-profile-show-container py-2 mb-4">
+      <div class="py-2">
+        <div class="d-flex py-2 ">
+          <div class="col-3">
+            <%=link_to user_path(current_user) do  %>
+            <%= attachment_image_tag current_user, :profile_image, class: "profile_image", fallback: "no_image.jpg", size: '60x60' %>
+            <% end %>
+          </div>
+          <div class="col-9">
+            <p class="d-inline-block"><%= link_to current_user.username, user_path(current_user) %></p>
+            <%= link_to edit_user_path(current_user), class: "pl-2 profile-edit-button fs-10" do%>
+              <span>編集</span><i class="fas fa-pen post-font-awesome px-1 fs-10"></i>
+            <% end %>
+            <p class="fs-10 mt-1">投稿<%= current_user.posts.count%>件</p>
+            <div class="d-flex fs-11 mt-1">
+              <p class="col-6 pl-0 ce-pointer" id="self-follower-modal-open">フォロワー<%= current_user.followers.count %>人</p>
+              <p class="col-6 pl-0 ce-pointer" id="self-following-modal-open">フォロー<%= current_user.followings.count%>人</p>
+            </div>
+          </div>
+        </div>
+        <p class="fs-12 px-4 py-2"><%= current_user.profile %></p>
+        <div class="d-flex flex-wrap px-4 pb-2 text-secondary fs-10">
+          <p class="col-6 pl-0"><i class="fa-regular fa-calendar-days pr-1"></i><%= current_user.travel_period %></p>
+          <p class="col-6 pl-0"><i class="fa-solid fa-location-dot pr-1"></i><%= current_user.current_location%></p>
+        </div>
+      </div>
+    </section>
+    <% end %>
+    
+      <!--フォロー一覧モーダル-->
+  <%= render "relationships/follow_list_modal", follow: "self-follower",follows: current_user.followers, user: current_user, title: "フォロワー" %>
+  <%= render "relationships/follow_list_modal", follow: "self-following",follows: current_user.followings, user: current_user, title: "フォロー中" %>
   
+  
+    <!--最新の質問表示-->
+    <section>
+      <div style="font-weight: 600;">最新の質問に答える</div>
+        <% num =0 %>
+        <% @right_questions.each do |question| %>
+        <% num +=1 %>
+          <div class="list-right-question-list-container">
+            <%=link_to question_path(question), class: "list-right-question-list" do %>
+              <div>
+                <p><%= num %>．<span style="font-weight:500;"><%= question.user.username %></span>さん</p>
+                <p><%= question.question_title %></p>
+                <p class="list-right-question-list-answer-count"><%= question.answers.count %>件の回答</p>
+              </div>
+            <% end %>
+              <div class="text-right list-right-question-list-created-at">
+                <p class="d-inline-blockm-0"><%= question.created_at.strftime("%Y-%m-%d") %></p>
+              </div>  
+          </div>
+        <% end %>
+    </section>  
+  </section>
 </section>
     

@@ -9,7 +9,13 @@ Rails.application.routes.draw do
   post "/answers/:answer_id//helpful", to: "helpfuls#create", as: "create_helpful"
   delete "/answers/:answer_id/helpful", to: "helpfuls#destroy", as: "destroy_helpful"
   
-  resources :users, except: [:index]
+  resources :users, except: [:index] do
+    resource :relationships, only: [:create, :destroy]
+  end
+  # パスワード編集画面用
+  get 'users/:id/edit_password', to: "users#edit_password", as: "edit_user_password"
+  patch 'users/:id/update_password', to: "users#update_password", as: "update_user_password" 
+  
   resources :posts, except: [:show] do
     resources :comments, only: [:create, :destroy]
     resource :favorites, only: [:create, :destroy]

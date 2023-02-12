@@ -1,0 +1,4 @@
+$('#ajax-follow-button-<%= @user.id %>').html("<%= j(render "relationships/follow", user: @user) %>");
+$('#ajax-follow-button').html("<%= j(render "relationships/follow", user: @user) %>");
+$('#ajax-followers-number').html("<%= @followers_number %>");
+$('#ajax-followings-number').html("<%= @followings_number %>");

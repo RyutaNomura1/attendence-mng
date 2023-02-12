@@ -1,4 +1,4 @@
-<%= form_for (user) do |f| %>
+<%= form_for (user), url: user_path(user) do |f| %>
     <%= f.label :username, "名前", class: "label-control" %>
     <%= f.text_field :username, class: 'form-control' %>
      
@@ -13,14 +13,10 @@
     
     <%= f.label :travel_period, "旅歴", class: "label-control" %>
     <%= f.text_field :travel_period, class: 'form-control' %>
+    
+    <%= f.label :current_location, "現在地", class: "label-control" %>
+    <%= f.text_field :current_location, class: 'form-control' %>
      
-    <%= f.label :number_of_countries, "渡航した国の数", class: "label-control"%>
-    <%= f.text_field :number_of_countries, class: "form-control" %>
-    
-    <%= f.label :favorite_country, "好きな国", class: "label-control"%>
-    <%= f.text_field :favorite_country, class: "form-control" %> 
-    
-  
     <div class= "submit-position">
       <%= f.submit "プロフィールを更新", class: "btn btn-success" %>
     </div>  

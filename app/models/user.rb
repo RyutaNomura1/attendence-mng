@@ -19,12 +19,7 @@ class User < ApplicationRecord
   
   has_secure_password
   # パスワードupdate時にはバリデーションがかからないため追加
-  validate(on: :update) do |record|
-    record.errors.add(:password, :blank) unless record.password_digest.present?
-  end
-  validates :password, presence: true
-  validates_length_of :password, maximum: ActiveModel::SecurePassword::MAX_PASSWORD_LENGTH_ALLOWED, on: :update
-  validates_confirmation_of :password, allow_blank: true, on: :update
+  validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   
   before_save :email_downcase
   validates :username, presence: true, length: {maximum: 50 }
@@ -69,6 +64,11 @@ class User < ApplicationRecord
   # 既に役立つを押しているか確認
   def already_helpful?(answer)
     self.helpfuls.exists?(answer_id: answer.id)
+  end
+  
+  # 既に引数で渡されたuserをフォローしているか確認
+  def already_following?(user)
+    self.followings.include?(user)
   end
   
     private

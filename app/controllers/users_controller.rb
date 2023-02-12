@@ -29,21 +29,25 @@ class UsersController < ApplicationController
   
   def update
     @user = User.find(params[:id])
-    # プロフィールかパスワードの場合分け
-    if params[:password]
-      if @user.update(update_password_params)
-        flash[:success]="#{@user.username}さんのパスワードを変更しました"
-        redirect_to user_path(@user)
-      else
-        redirect_to edit_user_path(@user, templete: "password")
-      end
+    if @user.update_attributes(update_user_params)
+      flash[:success]="#{@user.username}さんのプロフィールを更新しました"
+      redirect_to user_path(@user)
     else
-      if @user.update(update_user_params)
-        flash[:success]="#{@user.username}さんのプロフィールを更新しました"
-        redirect_to user_path(@user)
-      else
-        render "edit"
-      end
+      render "edit"
+    end
+  end
+  
+  def edit_password
+    @user = User.find(params[:id])
+  end
+  
+  def update_password
+    @user = User.find(params[:id])
+    if @user.update_attributes(update_password_params)
+      flash[:success]="#{@user.username}さんのパスワードを変更しました"
+      redirect_to user_path(@user)
+    else
+      render "edit_password"
     end
   end
 
@@ -54,8 +58,8 @@ class UsersController < ApplicationController
     end
     
     def update_user_params
-      params.require(:user).permit(:username, :email, :profile_image, :profile, 
-                                   :travel_period, :number_of_countries, :favorite_country )
+      params.require(:user).permit(:username, :email, :profile_image, :profile,
+                                   :travel_period, :current_location)
     end
     
     def update_password_params
