@@ -3,16 +3,16 @@
     <%= render "shared/error_messages", object: f.object %>
     
     <%= f.label :username, "名前", class: "label-control" %>
-    <%= f.text_field :username, class: 'fa form-control', placeholder: "\uf007" %>
+    <%= f.text_field :username, class: 'form-control' %>
   
     <%= f.label :email, "メールアドレス" , class: "label-control"%>
-    <%= f.email_field :email, class: 'fa form-control' , placeholder: "\uf0e0"%>
+    <%= f.email_field :email, class: 'form-control' %>
   
     <%= f.label :password, "パスワード" , class: "label-control"%>
-    <%= f.password_field :password, class: 'fa form-control', placeholder: "\uf023"%>
+    <%= f.password_field :password, class: 'form-control' %>
   
     <%= f.label :password_confirmation, "パスワード確認" , class: "label-control"%>
-    <%= f.password_field :password_confirmation, class: 'fa form-control', placeholder: "\uf023" %>
+    <%= f.password_field :password_confirmation, class: 'form-control' %>
     <div class= "submit-position">
       <%= f.submit "新規登録", class: "btn btn-success" %>
     </div>  
