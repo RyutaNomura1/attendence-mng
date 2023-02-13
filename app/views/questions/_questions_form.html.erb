@@ -1,4 +1,7 @@
 <%= form_for (@question) do |f| %>    
+
+  <%= render "shared/error_messages", object: f.object %>
+
   <%= f.label :question_title, "タイトル", class: "label-control"%>
   <%= f.text_field :question_title, class: 'form-control' %>
 

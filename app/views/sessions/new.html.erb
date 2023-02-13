@@ -1,8 +1,7 @@
 <section class="w1100-container">
 
   <%= form_for(:session, url: login_path) do |f| %>
-    <!--render 'shared/error_messages', object: f.object-->
-    <!--エラーが起きたのでコメントアウトしておく-->  
+  
     <%= f.label :email, "メールアドレス", class: "label-control" %>
     <%= f.email_field :email, class: 'form-control fa', placeholder: "\uf0e0" %>
   

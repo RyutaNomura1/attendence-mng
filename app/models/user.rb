@@ -16,18 +16,18 @@ class User < ApplicationRecord
   
   
   attr_accessor :remember_token
-  
-  has_secure_password
-  # パスワードupdate時にはバリデーションがかからないため追加
-  validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
-  
   before_save :email_downcase
-  validates :username, presence: true, length: {maximum: 50 }
+  has_secure_password
+  validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+  validates :username, presence: true, length: {maximum: 30 }
   VALID_EMAIL_REGEX =  /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, presence: true, length: {maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX},
                     uniqueness: {case_sensitive: false}
   validates :profile, length: {maximum: 200}
+  validates :travel_period, length: {maximum: 30}
+  validates :current_location, length: {maximum: 30}
+
   attachment :profile_image
 
   # 文字列のハッシュ値を返す

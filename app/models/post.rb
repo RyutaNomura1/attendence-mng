@@ -7,7 +7,6 @@ class Post < ApplicationRecord
     attachment :post_image
     validates :title, presence: true, length: {maximum: 30 }
     validates :post_image, presence: true
-    validates :body, length: {maximum: 200}
-    
+    validates :body, length: {maximum: 300}
 end
   

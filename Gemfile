@@ -63,3 +63,5 @@ gem "refile", require: "refile/rails", github: 'manfe/refile'
 gem "refile-mini_magick"
 #font awesome
 gem "font-awesome-sass"
+#エラーメッセージの日本語化
+gem 'rails-i18n'

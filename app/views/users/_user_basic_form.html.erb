@@ -1,4 +1,7 @@
 <%= form_for (user), url: user_path(user) do |f| %>
+
+    <%= render "shared/error_messages", object: f.object %>
+
     <%= f.label :username, "名前", class: "label-control" %>
     <%= f.text_field :username, class: 'form-control' %>
      

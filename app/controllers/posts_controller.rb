@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_action :logged_in_user, except: [:index]
   before_action :correct_post_user, only: [:edit, :update, :destroy]
-  before_action :define_big_categories, only: [:edit, :new, :index]
+  before_action :define_big_categories, only: [:edit, :new, :index, :create, :update]
   
   def new
     @post = Post.new
@@ -11,9 +11,9 @@ class PostsController < ApplicationController
     @post = current_user.posts.build(post_params)
     if @post.save
       flash[:success] = "#{@post.title}を投稿しました"
-      redirect_to posts_path
+      redirect_to root_url
     else
-      render :new
+      render "new"
     end
   end
   
@@ -38,9 +38,9 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     if @post.update(post_params)
       flash[:success] = "#{@post.title}を更新しました"
-      redirect_to root_path
+      redirect_to root_url
     else
-      render :edit
+      render "edit"
     end
   end
   
@@ -57,27 +57,34 @@ class PostsController < ApplicationController
   end
   
   def define_lists_by_params
-    if params[:name]
-      category = Category.find_by(name: params[:name])
-      @lists = category.posts
-    elsif params[:big_category]
-      categories = Category.where(big_category: params[:big_category])
-      @lists = []
-      categories.each do |category|
-        posts = category.posts
-        posts.each do |post|
-          @lists.push post
+    if logged_in? 
+      if params[:name]
+        category = Category.find_by(name: params[:name])
+        @lists = category.posts
+      elsif params[:big_category]
+        categories = Category.where(big_category: params[:big_category])
+        @lists = []
+        categories.each do |category|
+          @lists.push(*category.posts)
         end
+      else
+        users = current_user.followings
+        @lists = []
+        users.each do |user|
+          @lists.push(*user.posts, *user.questions)
+        end
+        @lists.sort!{ |a, b| b.created_at <=> a.created_at }
       end
-    else
+    else #ログインしていない場合全投稿を一覧する
       posts = Post.all
       questions = Question.all
       @lists =  posts | questions
-      @lists.sort!{ |a, b| b.created_at <=> a.created_at }
+      @lists.sort!{ |a, b| b.created_at <=> a.created_at }      
     end
-      
   end
   
+  def change_lists_if_logged_in
+  end
   
   def define_big_categories
     domestic_categories = Category.where(big_category: "国内旅行")
