@@ -17,28 +17,26 @@
             <div id="ajax-follow-button">
               <%= render "relationships/follow", user: @user%>
             </div>
-          
         <% end %>
           
         </div>
-
-          
           <div class="d-flex fs-13 mb-2">
             <p class="col-3 mb-0 pl-0 ce-pointer" id="follower-modal-open">フォロワー<span id="ajax-followers-number"><%= @user.followers.count %></span>人</p>
             <p class="col-3 mb-0 pl-0 ce-pointer" id="following-modal-open">フォロー<span id="ajax-followings-number"><%= @user.followings.count %></span>人</p>
           </div>
           <p id="profile-body" class="mb-2"><%= @user.profile %></p>
           <div class="d-flex text-secondary fs-12">
-            <p class="col-3 pl-0"><i class="fa-regular fa-calendar-days pr-1"></i><%= current_user.travel_period %></p>
+            <p class="col-3 pl-0"><i class="fa-solid fa-compass pr-1"></i><%= current_user.travel_period %></p>
             <p class="col-3 pl-0"><i class="fa-solid fa-location-dot pr-1"></i><%= current_user.current_location%></p>
           </div>  
       </div>
     </div>
+    <!--フォロー一覧モーダル-->
+    <span id="ajax-follower-modal"><%= render "relationships/follow_list_modal", follow: "follower", follows: @user.followers, title: "フォロワー" %></span>
+    <span id="ajax-folloer-modal"><%= render "relationships/follow_list_modal", follow: "following", follows: @user.followings, title: "フォロー中" %></span>
+    
   </section>
   
-  <!--フォロー一覧モーダル-->
-  <span id="ajax-follower-modal"><%= render "relationships/follow_list_modal", follow: "follower", follows: @user.followers, title: "フォロワー" %></span>
-  <span id="ajax-folloer-modal"><%= render "relationships/follow_list_modal", follow: "following", follows: @user.followings, title: "フォロー中" %></span>
 
   
   <section id="profile-posts-container">
@@ -52,6 +50,4 @@
       <% end %>
     </ul>
   </section>
-  
-
 </section>

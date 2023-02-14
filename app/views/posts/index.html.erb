@@ -6,10 +6,8 @@
 
 
 <section class="list-page-container d-flex">
-  
   <section class="list-left-container">
     <div class="left-category-choose-container">
-      
       <p class="font-weight-bold text-success h6 pb-1 pl-3 pt-1">カテゴリーから見つける</p>
         <% @big_categories.each do |big_category|%>
             <p  class= "left-category-choose-big-categories"><%= link_to big_category[0].big_category, root_path(big_category: big_category[0].big_category) %>
@@ -18,7 +16,6 @@
               <div id= "left-category-dropdown-item-<%= big_category[0].big_category %>">
                 <%= link_to category.name, root_path(name: category.name), class: "left-category-choose-name" %>
               </div>
-             
           <% end %>
         <!--ドロップダウン用-->
           <script>
@@ -130,18 +127,16 @@
         </div>
         <p class="fs-12 px-4 py-2"><%= current_user.profile %></p>
         <div class="d-flex flex-wrap px-4 pb-2 text-secondary fs-10">
-          <p class="col-6 pl-0"><i class="fa-regular fa-calendar-days pr-1"></i><%= current_user.travel_period %></p>
+          <p class="col-6 pl-0"><i class="fa-solid fa-compass pr-1"></i><%= current_user.travel_period %></p>
           <p class="col-6 pl-0"><i class="fa-solid fa-location-dot pr-1"></i><%= current_user.current_location%></p>
         </div>
       </div>
+          <!--フォロー一覧モーダル-->
+      <%= render "relationships/follow_list_modal", follow: "self-follower",follows: current_user.followers, user: current_user, title: "フォロワー" %>
+      <%= render "relationships/follow_list_modal", follow: "self-following",follows: current_user.followings, user: current_user, title: "フォロー中" %>
     </section>
     <% end %>
     
-      <!--フォロー一覧モーダル-->
-  <%= render "relationships/follow_list_modal", follow: "self-follower",follows: current_user.followers, user: current_user, title: "フォロワー" %>
-  <%= render "relationships/follow_list_modal", follow: "self-following",follows: current_user.followings, user: current_user, title: "フォロー中" %>
-  
-  
     <!--最新の質問表示-->
     <section>
       <div style="font-weight: 600;">最新の質問に答える</div>
