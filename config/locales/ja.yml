@@ -9,7 +9,7 @@ ja:
         title: タイトル
         location: 場所
         body: 内容
-        post_image_id: 写真
+        post_image: 写真
       question:
         question_title: タイトル
         question_body: 内容
