@@ -34,12 +34,12 @@ RSpec.describe User, type: :model do
       end
       
       it "emailが空" do
-        # user.email = nil
+        user.email = nil
         expect(user).to be_invalid
       end
       
       it "passwordが空" do
-        # user.password = nil
+        user.password = nil
         expect(user).to be_invalid
       end
     end
@@ -85,7 +85,7 @@ RSpec.describe User, type: :model do
         
         other_user = User.new(
           username: "鈴木一郎",
-          email: "taro@mail.com",
+          email: "example@mail.com",
           password: "b"* 6,
           password_confirmation: "b"* 6
         )
