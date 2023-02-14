@@ -7,12 +7,14 @@
       <div class="follow-modal-body">
         <% follows.each do |each_user| %>
           <div class="d-flex border-bottom py-2 px-2 align-items-center" style="line-height: 32px;">
+            <%= link_to user_path(each_user), class: "d-flex" do %>
               <p class= "mb-0"><%= attachment_image_tag each_user, :profile_image, class: "profile_image", fallback: "no_image.jpg", size: '35x35' %></p>
               <p class="mb-0 pl-2"><%= each_user.username %></p>
-              <% unless current_user.id == each_user.id %>
-                <p class="ml-auto my-auto" id="ajax-follow-button-<%= each_user.id %>">
-                  <%= render "relationships/follow", user: each_user %></p>
-              <% end %>
+            <% end %>  
+            <% unless current_user.id == each_user.id %>
+              <p class="ml-auto my-auto" id="ajax-follow-button-<%= each_user.id %>">
+                <%= render "relationships/follow", user: each_user %></p>
+            <% end %>
           </div>
         <% end %>
       </div>
