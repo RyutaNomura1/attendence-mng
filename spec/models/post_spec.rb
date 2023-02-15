@@ -5,21 +5,21 @@ RSpec.describe Post, type: :model do
     let!(:user){create(:user)}
     it "正しく投稿を登録できる" do
       post = Post.new(
-      user_id: 1,
-      title: "title of post",
-      location: "location of post",
-      body: "body of post",
-      post_image: Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec/fixtures/images/test.jpg'))
+        user_id: user.id,
+        title: "title of post",
+        location: "location of post",
+        body: "body of post",
+        post_image: Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec/fixtures/images/test.jpg'))
       )
       
       expect(post).to be_valid
       post.save
-      registed_post = Post.find(1);
+      registered_post = Post.find(1)
       
-      expect(registed_post.user_id).to eq(1)
-      expect(registed_post.title).to eq("title of post")
-      expect(registed_post.location).to eq("location of post")
-      expect(registed_post.body).to eq("body of post")
+      expect(registered_post.user_id).to eq(user.id)
+      expect(registered_post.title).to eq("title of post")
+      expect(registered_post.location).to eq("location of post")
+      expect(registered_post.body).to eq("body of post")
     end
   end
   
