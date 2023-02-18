@@ -13,7 +13,8 @@
   
     <%= f.label :password_confirmation, "パスワード確認" , class: "label-control"%>
     <%= f.password_field :password_confirmation, class: 'form-control' %>
+    
     <div class= "submit-position">
-      <%= f.submit "新規登録", class: "btn btn-success" %>
+      <%= f.submit "新規登録", class: "btn btn-success", id: "rspec_new_user_button" %>
     </div>  
   <% end %>
