@@ -234,7 +234,7 @@ RSpec.describe "Users", js: true,type: :system do
           expect(page).to have_content user.current_location
         end
         
-        it "displays usr profile image" do 
+        it "displays user profile image" do 
           expect(page).to have_css '#rspec_user_path_profile_image'
         end
         

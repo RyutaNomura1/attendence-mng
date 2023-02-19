@@ -73,6 +73,7 @@ class PostsController < ApplicationController
         users.each do |user|
           @lists.push(*user.posts, *user.questions)
         end
+        @lists.push(*current_user.posts)
         @lists.sort!{ |a, b| b.created_at <=> a.created_at }
       end
     else #ログインしていない場合全投稿を一覧する
