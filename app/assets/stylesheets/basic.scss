@@ -1,0 +1,38 @@
+// Place all the styles related to the favorites controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+//基本設定
+body{
+  background-color: $bgColor;
+}
+ul{
+  padding-left: none ;
+}
+li{
+list-style: none;
+}
+img{
+  object-fit: cover;
+}
+textarea{
+  resize: none;
+}
+a{
+  color: inherit ;
+  text-decoration: none;
+  &:hover{
+    color: inherit;
+    text-decoration: none;
+  }
+}
+  @for $i from 10 through 14 {
+    .fs-#{$i}{
+      font-size: #{$i}px ;
+    }
+  }
+
+
+.ce-pointer{
+  cursor: pointer !important;
+}

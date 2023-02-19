@@ -4,7 +4,7 @@
   <section id ="profile-container" >
     <div class="d-flex flex-wrap ">
       <div class="col-lg-2 pl-0">
-        <%= attachment_image_tag @user, :profile_image, class: "profile_image m-3", fallback: "no_image.jpg", size: '120x120' %>
+        <%= attachment_image_tag @user, :profile_image, class: "profile_image m-3", fallback: "no_image.jpg", size: '120x120', id: "rspec_user_path_profile_image" %>
       </div>
       <div class="col-lg-9 pl-5">
         <div class="d-flex align-items-start">
@@ -26,8 +26,8 @@
           </div>
           <p id="profile-body" class="mb-2"><%= @user.profile %></p>
           <div class="d-flex text-secondary fs-12">
-            <p class="col-3 pl-0"><i class="fa-solid fa-compass pr-1"></i><%= current_user.travel_period %></p>
-            <p class="col-3 pl-0"><i class="fa-solid fa-location-dot pr-1"></i><%= current_user.current_location%></p>
+            <p class="col-3 pl-0"><i class="fa-solid fa-compass pr-1"></i><%= @user.travel_period %></p>
+            <p class="col-3 pl-0"><i class="fa-solid fa-location-dot pr-1"></i><%= @user.current_location%></p>
           </div>  
       </div>
     </div>
@@ -36,9 +36,7 @@
     <span id="ajax-folloer-modal"><%= render "relationships/follow_list_modal", follow: "following", follows: @user.followings, title: "フォロー中" %></span>
     
   </section>
-  
 
-  
   <section id="profile-posts-container">
     <ul class="d-flex flex-wrap p-0">
       <% @user.posts.reverse_each do |post| %>

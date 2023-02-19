@@ -82,7 +82,7 @@ RSpec.describe "Sessions", type: :system do
     end
     
     describe "screen details" do
-      it "displays link to login path" do
+      it "displays link to login_path" do
         expect(page).to have_link "初めての方はこちら", href: new_user_path 
       end
     end  
