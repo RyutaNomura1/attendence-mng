@@ -11,6 +11,7 @@
  * It is generally better to create a new file per style scope.
  *
  */
+@import "basic";
 @import "bootstrap";
 @import 'font-awesome';
 
@@ -536,7 +537,7 @@ footer{
 }
 .question-show-answer-helpful-off{
   border: 1px solid $mainColor;
-  background-color: $white;  
+  background-color: white;  
   font-weight: bold;
   color: $mainColor;
   padding: 5px 10px;

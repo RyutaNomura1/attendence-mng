@@ -16,7 +16,7 @@ RSpec.describe "Users", js: true,type: :system do
     let!(big_category){create(big_category)}
   end
 
-  describe "GET users#new" do
+  describe "Get users#new" do
    before do
      visit new_user_path
    end
@@ -68,10 +68,159 @@ RSpec.describe "Users", js: true,type: :system do
       end
     end
   end
+  
+  describe "Get users#edit" do
+    let!(:user){create(:user)}
+    before do
+      login(user)
+      visit edit_user_path(user)
+    end
+    
+    describe "screen details" do
+      it "displays link to users edit_user_path" do 
+        expect(page).to have_link "基本情報", href: edit_user_path(user)
+      end
+      
+      it "displays link to users edit_user_path" do 
+        expect(page).to have_link "パスワード設定", href: edit_user_password_path(user)
+      end
+      
+      it "displays button to user_path(patch) " do
+        expect(page).to have_button "プロフィールを更新"
+      end
+      
+      # it "displays user profiles" do
+      #   expect(page).to have_content user.username
+      #   expect(page).to have_content user.email
+      #   expect(page).to have_content user.profile
+      #   expect(page).to have_content user.current_location
+      #   expect(page).to have_content user.travel_period
+      # end
+      
+    end
+    
+    describe "screen oparation" do 
+    
+      context "when input contents are valid" do
+        before do 
+          fill_in "名前", with: "new_username"
+          fill_in "メールアドレス", with: "new@mail.com"
+          fill_in "自己紹介", with: "new_profile"
+          fill_in "旅歴", with: "new_travel_period"
+          fill_in "現在地", with: "new_current_location"
+          click_button "プロフィールを更新"
+        end
+        
+        it "update user information" do
+          expect(user.reload.username).to eq "new_username" 
+          expect(user.reload.email).to eq "new@mail.com" 
+          expect(user.reload.profile).to eq "new_profile" 
+          expect(user.reload.travel_period).to eq "new_travel_period" 
+          expect(user.reload.current_location).to eq "new_current_location" 
+        end
+        
+        it "redirect to user_path" do
+          expect(current_path).to eq user_path(user)
+        end
+        
+        it "has success message" do
+          expect(page).to have_content("#{user.reload.username}さんのプロフィールを更新しました")
+        end
+        
+      end
+      
+      context "when input contents are invalid" do
+        before do 
+          fill_in "名前", with: nil
+          fill_in "メールアドレス", with: nil
+          fill_in "自己紹介", with: "new_profile"
+          fill_in "旅歴", with: "new_travel_period"
+          fill_in "現在地", with: "new_current_location"
+          click_button "プロフィールを更新"
+        end
+        
+        it "render the the users/edit" do
+          expect(current_path).to eq edit_user_path(user)
+        end
+        
+        it "has 3 errors" do
+          expect(page).to have_content("3件のエラー")
+          expect(page).to have_content("名前を入力してください")
+          expect(page).to have_content("メールアドレスを入力してください")
+          expect(page).to have_content("メールアドレスは不正な値です")
+        end
+      end
+    end
+    
+    
+  end
+  
+  describe "Get users#edit_password" do
+    let!(:user){create(:user)}
+    before do
+      login(user)
+      visit edit_user_password_path(user)
+    end
+    
+    describe "screen details" do
+      
+      it "displays link to users edit_user_path" do 
+        expect(page).to have_link "基本情報", href: edit_user_path(user)
+      end
+      
+      it "displays link to users edit_user_path" do 
+        expect(page).to have_link "パスワード設定", href: edit_user_password_path(user)
+      end
+      
+      it "displays button to user_path(patch) " do
+        expect(page).to have_button "パスワードを変更"
+      end
+    end
+    
+    
+    describe "screen oparation" do
+      
+      context "when input contents are valid" do
+        before do
+          fill_in "パスワード", with: "new_password"
+          fill_in "パスワード確認", with: "new_password"
+          click_button "パスワードを変更"
+        end
+        
+        it "update user password_digest" do
+          expect(user.password_digest).not_to eq(user.reload.password_digest)
+        end
+        
+        it "redirect to user_path" do
+          expect(current_path).to eq user_path(user)
+        end
+        
+        it "has success message" do
+          expect(page).to have_content("#{user.reload.username}さんのパスワードを変更しました")
+        end
+      end
+      
+      # context "when input contents are invalid" do
+      #   before do
+      #     fill_in "パスワード", with: nil
+      #     fill_in "パスワード確認", with: nil
+      #     click_button "パスワードを変更"
+      #   end
+        
+      #   it "redirect to user" do 
+      #     expect(current_path).to eq user_edit_password_path(user)
+      #   end
+        
+      #   it "has danger message" do
+      #     expect(page).to have_content("有効な組み合わせではありません")
+      #   end
+        
+      # end
+    end
+  end
 
-  describe "users#show画面" do
-    
-    
+
+  describe "Get users#show" do
     describe "screen details" do
       context "when the displayed page is own page " do
         before do
@@ -154,6 +303,48 @@ RSpec.describe "Users", js: true,type: :system do
         end
       end
     end
+  end
+  
+  describe "before action" do
+    context "when try to action without login" do
+    end
+    
+    context "when different user try to action" do
+      before do
+        login user
+      end
+      
+      context "when user try to edit different user" do
+        before do 
+          visit edit_user_path(other_user)
+        end
+        
+        it "redirect to root path" do
+          expect(current_path).to eq root_path
+        end
+        
+        it "has danger message" do
+          expect(page).to have_content ("その機能はユーザー本人しか利用できません") 
+        end
+      end
+      
+      context "when user try to edit different user password" do
+        before do 
+          visit edit_user_password_path(other_user)
+        end
+        it "redirect to root path" do
+          expect(current_path).to eq root_path
+        end
+        
+        it "has danger message" do
+          expect(page).to have_content ("その機能はユーザー本人しか利用できません") 
+        end
+        
+      end
+      
+      
+    end
+    
   end
 end
 
