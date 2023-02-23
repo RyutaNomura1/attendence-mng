@@ -2,6 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
+
 //基本設定
 $bgColor: #0000000d;
 body{
@@ -29,10 +30,9 @@ a{
 }
   @for $i from 10 through 14 {
     .fs-#{$i}{
-      font-size: #{$i}px ;
+      font-size: #{$i}px !important;
     }
   }
-
 
 .ce-pointer{
   cursor: pointer !important;

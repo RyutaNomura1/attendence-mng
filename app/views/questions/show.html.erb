@@ -13,7 +13,9 @@
         <% end %><span>さんの質問</span><i class="fa fa-question-circle "></i> 
       <p class="list-top-element question-show-question-title "><%= @question.question_title %></p>
       </div>
-      <%= simple_format @question.question_body, class: "question-show-question-body" %>
+      <div class="px-2">
+        <%= simple_format @question.question_body, class: "question-show-question-body" %>
+      </div>
       <div class="text-right">
         <p class = "question-created-at mb-0"><%= @question.created_at.strftime("%Y-%m-%d %H:%M") %></p>
         <% if current_user == @question.user %>
