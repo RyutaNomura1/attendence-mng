@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, except: [:new, :edit, :create]
+  before_action :logged_in_user, except: [:new, :create]
   before_action :correct_user, only: [:edit, :update, :edit_password, :update_password
-  ]
+]
   
   def new
     @user = User.new

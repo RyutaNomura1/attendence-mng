@@ -35,7 +35,7 @@ RSpec.describe "Posts", type: :system do
           fill_in "タイトル", with: "title"
           fill_in "場所", with: "location"
           fill_in "内容", with: "body"
-          find("#post_category_ids_2").click
+          # check "post_category_ids_2"
           attach_file "post_post_image", "#{Rails.root}/spec/fixtures/images/test.jpg"
         end
         
@@ -54,10 +54,13 @@ RSpec.describe "Posts", type: :system do
         end
         
         it "displays new post information" do
+          #category_name =  find_by_id('post_category_ids_2')
           click_button "rspec_post_button"
           expect(page).to have_content "title"
           expect(page).to have_content "location"
           expect(page).to have_content "body"
+          # expect(page).to have_content "東京"
+          
         end
       end
       
@@ -111,6 +114,109 @@ RSpec.describe "Posts", type: :system do
       end
       
       
+    end
+  end
+  
+  describe "Get posts#index" do
+    describe "screen details" do
+      
+    end
+
+    describe "screen oparations" do
+      
+    end
+    
+    
+  end
+  
+  describe "before action" do
+    context "when try to action without login" do
+      context "when try to see posts without login" do
+        before do
+          visit root_path
+        end
+        it "redirects to new user path" do
+          expect(current_path).to eq new_user_path
+        end
+        
+        it "has danger message" do
+          expect(page).to have_content "新規登録、またはログインをしてください"
+        end
+      end
+      
+      context "when try to create new post without login" do
+        before do
+          visit new_post_path
+        end
+        it "redirects to new user path" do
+          expect(current_path).to eq new_user_path
+        end
+        
+        it "has danger message" do
+          expect(page).to have_content "新規登録、またはログインをしてください"
+        end
+      end
+      
+      context "when try to edit post without login" do
+        before do
+          visit edit_post_path(post)
+        end
+        it "redirects to new user path" do
+          expect(current_path).to eq new_user_path
+        end
+        
+        it "has danger message" do
+          expect(page).to have_content "新規登録、またはログインをしてください"
+        end
+      end
+      
+      # context "when try to update(pacth) post without login" do
+      #   before do
+      #     patch post_path(post)
+      #   end
+      #   it "redirects to new user path" do
+      #     expect(current_path).to eq new_user_path
+      #   end
+        
+      #   it "has danger message" do
+      #     expect(page).to have_content "新規登録、またはログインをしてください"
+      #   end
+        
+      # end
+      
+      # context "when try to edit post without login" do
+      #   before do
+      #     delete post_path(post)
+      #   end
+      #   it "redirects to new user path" do
+      #     expect(current_path).to eq new_user_path
+      #   end
+        
+      #   it "has danger message" do
+      #     expect(page).to have_content "新規登録、またはログインをしてください"
+      #   end
+      # end
+      
+    end
+    
+    context "when incorrect user try to action" do
+      before do
+        login other_user
+      end
+      context "when user try to edit other users post" do
+        before do 
+          visit edit_post_path(post)
+        end
+        it "redirect to root path" do
+          expect(current_path).to eq root_path
+        end
+
+        it "has danger message" do
+          expect(page).to have_content ("その機能はユーザー本人しか利用できません") 
+        end        
+      end
+      
+
     end
   end
 end

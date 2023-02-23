@@ -285,20 +285,20 @@ RSpec.describe "Users", js: true,type: :system do
         
         context "when button to user_relationships is clicked" do 
           
-          # ボタンをクリックするとリンクが変わること
-          # it "doesnt display button to user_relationships(delete)" do
-          #   click_button 'rspec_user_path_unfollow_button'
-          #   expect(page).to have_no_button "rspec_user_path_unfollow_button"
-          # end
+          ボタンをクリックするとリンクが変わること
+          it "doesnt display button to user_relationships(delete)" do
+            click_button 'rspec_user_path_unfollow_button'
+            expect(page).to have_no_button "rspec_user_path_unfollow_button"
+          end
           
-          # it "displays button to user_relationships(post)" do
-          #   click_button 'rspec_user_path_unfollow_button'
-          #   expect(page).to have_button "rspec_user_path_follow_button"
-          # end
+          it "displays button to user_relationships(post)" do
+            click_button 'rspec_user_path_unfollow_button'
+            expect(page).to have_button "rspec_user_path_follow_button"
+          end
           
-          # it "delete following relationships" do
-          #   expect {click_button "rspec_user_path_unfollow_button"}.to change( other_user.followers, :count).by(-1)
-          # end
+          it "delete following relationships" do
+            expect {click_button "rspec_user_path_unfollow_button"}.to change( other_user.followers, :count).by(-1)
+          end
           
         end
       end
@@ -307,14 +307,28 @@ RSpec.describe "Users", js: true,type: :system do
   
   describe "before action" do
     context "when try to action without login" do
+      
+      context "when try to edit user without login" do
+        before do
+          visit edit_user_path(user)
+        end
+      
+        it "redirects to new user path" do
+          expect(current_path).to eq new_user_path
+        end
+        
+        it "has danger message" do
+          expect(page).to have_content "新規登録、またはログインをしてください"
+        end
+      end      
     end
     
-    context "when different user try to action" do
+    context "when incorrect user try to action" do
       before do
         login user
       end
       
-      context "when user try to edit different user" do
+      context "when user try to edit other user" do
         before do 
           visit edit_user_path(other_user)
         end
@@ -328,7 +342,7 @@ RSpec.describe "Users", js: true,type: :system do
         end
       end
       
-      context "when user try to edit different user password" do
+      context "when user try to edit other user password" do
         before do 
           visit edit_user_password_path(other_user)
         end

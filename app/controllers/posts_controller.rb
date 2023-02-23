@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :logged_in_user, except: [:index]
+  before_action :logged_in_user
   before_action :correct_post_user, only: [:edit, :update, :destroy]
   before_action :define_big_categories, only: [:edit, :new, :index, :create, :update]
   
@@ -73,7 +73,7 @@ class PostsController < ApplicationController
         users.each do |user|
           @lists.push(*user.posts, *user.questions)
         end
-        @lists.push(*current_user.posts)
+        @lists.push(*current_user.posts, *current_user.questions)
         @lists.sort!{ |a, b| b.created_at <=> a.created_at }
       end
     else #ログインしていない場合全投稿を一覧する
@@ -82,9 +82,6 @@ class PostsController < ApplicationController
       @lists =  posts | questions
       @lists.sort!{ |a, b| b.created_at <=> a.created_at }      
     end
-  end
-  
-  def change_lists_if_logged_in
   end
   
   def define_big_categories
