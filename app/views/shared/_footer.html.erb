@@ -1,17 +1,24 @@
 <footer>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <%= link_to "Sharevel", root_path, class: "navbar-brand", id: "sharevel-footer" %>
+    <% if logged_in? %>
+      <%= link_to "Sharevel", root_path, class: "navbar-brand", id: "sharevel-footer" %>
+    <% else %>
+      <%= link_to "Sharevel", top_path, class: "navbar-brand", id: "sharevel-footer" %>
+    <% end %>
   
     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
       <ul class="navbar-nav">
+        <% if logged_in? %>
+          <li class="nav-item">
+            <%= link_to "ホーム画面へ", root_path, class: "nav-link" %>
+          </li>
+        <% else %>  
+          <li class="nav-item">
+            <%= link_to "新規登録へ", new_user_path, class: "nav-link" %>
+          </li>
+        <% end %>  
         <li class="nav-item">
-          <%= link_to "ホーム画面へ", root_path, class: "nav-link" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "sharevelとは", top_path , class: "nav-link" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "お問い合わせ", "#", class: "nav-link" %>
+          <%= link_to "Sharevelとは", top_path , class: "nav-link" %>
         </li>
       </ul>
     </div>

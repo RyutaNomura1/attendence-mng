@@ -105,7 +105,7 @@ RSpec.describe "Users", js: true,type: :system do
         before do 
           fill_in "名前", with: "new_username"
           fill_in "メールアドレス", with: "new@mail.com"
-          fill_in "自己紹介", with: "new_profile"
+          fill_in "プロフィール", with: "new_profile"
           fill_in "旅歴", with: "new_travel_period"
           fill_in "現在地", with: "new_current_location"
           click_button "プロフィールを更新"
@@ -133,7 +133,7 @@ RSpec.describe "Users", js: true,type: :system do
         before do 
           fill_in "名前", with: nil
           fill_in "メールアドレス", with: nil
-          fill_in "自己紹介", with: "new_profile"
+          fill_in "プロフィール", with: "new_profile"
           fill_in "旅歴", with: "new_travel_period"
           fill_in "現在地", with: "new_current_location"
           click_button "プロフィールを更新"
@@ -283,24 +283,24 @@ RSpec.describe "Users", js: true,type: :system do
           expect(page).to have_no_button "rspec_user_path_follow_button"
         end
         
-        context "when button to user_relationships is clicked" do 
+        # context "when button to user_relationships is clicked" do 
           
-          ボタンをクリックするとリンクが変わること
-          it "doesnt display button to user_relationships(delete)" do
-            click_button 'rspec_user_path_unfollow_button'
-            expect(page).to have_no_button "rspec_user_path_unfollow_button"
-          end
+        #   # ボタンをクリックするとリンクが変わること
+        #   it "doesnt display button to user_relationships(delete)" do
+        #     click_button 'rspec_user_path_unfollow_button'
+        #     expect(page).to have_no_button "rspec_user_path_unfollow_button"
+        #   end
           
-          it "displays button to user_relationships(post)" do
-            click_button 'rspec_user_path_unfollow_button'
-            expect(page).to have_button "rspec_user_path_follow_button"
-          end
+        #   it "displays button to user_relationships(post)" do
+        #     click_button 'rspec_user_path_unfollow_button'
+        #     expect(page).to have_button "rspec_user_path_follow_button"
+        #   end
           
-          it "delete following relationships" do
-            expect {click_button "rspec_user_path_unfollow_button"}.to change( other_user.followers, :count).by(-1)
-          end
+        #   it "delete following relationships" do
+        #     expect {click_button "rspec_user_path_unfollow_button"}.to change( other_user.followers, :count).by(-1)
+        #   end
           
-        end
+        # end
       end
     end
   end

@@ -36,6 +36,10 @@ gem 'bootstrap', '~> 4.3.1'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
+# group :production do
+#   gem 'pg'
+# end
+
 group :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'capybara', '>= 2.15'
@@ -54,7 +58,6 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
-
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
