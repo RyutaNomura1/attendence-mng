@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :post do
     user_id               {1}
-    title                 {"title of post"}
-    location              {"location of post"}
-    body                  {"body of post"}
+    sequence(:title)      {|n|"post_title#{n}"}
+    sequence(:location)   {|n|"location#{n}"}
+    sequence(:body)       {|n|"post_body#{n}"}
     post_image            {Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec/fixtures/images/test.jpg'))}
 
   end

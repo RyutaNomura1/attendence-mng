@@ -1,24 +1,22 @@
 require 'rails_helper'
 
 RSpec.describe "Sessions", type: :system do
-  let!(:user){create(:user)}
-  # root_path表示用の定義
-  let!(:question){create(:question)}
-  big_categories = [:japan, :asia, :oceania, :north_america, :europe, :other ]
-  big_categories.each do |big_category|
-    let!(big_category){create(big_category)}
-  end
+  # let!(:user){create(:user)}
+  # big_categories = [:japan, :asia, :oceania, :north_america, :europe, :other ]
+  # big_categories.each do |big_category|
+  #   let!(big_category){create(big_category)}
+  # end
 
   before do
     driven_by(:rack_test)
-  end
-  
-  before do
     visit login_path
   end
+
   describe "GET sessions#new" do 
     context "when input contents are valid" do 
+      let!(:user){create(:user)}
       before do
+        register_category
         fill_in "メールアドレス", with: user.email
         fill_in "パスワード", with: "password"
         click_button "rspec_login_button"
@@ -33,6 +31,7 @@ RSpec.describe "Sessions", type: :system do
       end
     end
     
+
     context "when input contents are empty" do
       before do
         fill_in "メールアドレス", with: ""
@@ -50,8 +49,9 @@ RSpec.describe "Sessions", type: :system do
     end
     
     context "when email is invalid" do
+      let!(:user){create(:user)}
       before do
-        fill_in "メールアドレス", with: "invalid@mail.com"
+        fill_in "メールアドレス", with: "invalid#{user.email}"
         fill_in "パスワード", with: "password"
         click_button "rspec_login_button"
       end      
@@ -66,6 +66,7 @@ RSpec.describe "Sessions", type: :system do
     end
     
     context "when password is invalid" do
+      let!(:user){create(:user)}
       before do
         fill_in "メールアドレス", with: user.email
         fill_in "パスワード", with: "invalid"

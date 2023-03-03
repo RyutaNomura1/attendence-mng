@@ -5,12 +5,20 @@ class AnswersController < ApplicationController
   
   def create
     @answer = current_user.answers.build(answer_params)
-    @answer.question_id = Question.find(params[:question_id]).id
+    @answer.question_id = @question.id
     @answer.save
+    respond_to do |format|
+      format.html { redirect_back fallback_location: question_path(@question) }
+      format.js
+    end  
   end
   
   def destroy
     Answer.find(params[:id]).destroy
+    respond_to do |format|
+      format.html { redirect_back fallback_location: question_path(@question) }
+      format.js
+    end  
   end
   
   

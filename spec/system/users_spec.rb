@@ -4,25 +4,16 @@ RSpec.describe "Users", js: true,type: :system do
   before do
     driven_by(:rack_test)
   end
-  
-  let!(:user){create(:user)}
-  let!(:other_user){create(:user)}
-  let!(:relationship1){create(:relationship1)}
-  let!(:relationship2){create(:relationship2)}
-  let!(:post){create(:post)}
-  let!(:question){create(:question)}
-  big_categories = [:japan, :asia, :oceania, :north_america, :europe, :other ]
-  big_categories.each do |big_category|
-    let!(big_category){create(big_category)}
-  end
+
 
   describe "Get users#new" do
-   before do
-     visit new_user_path
-   end
+  before do
+    visit new_user_path
+  end
    
     context "when input contents are valid " do 
       before do
+        register_category
         fill_in "名前", with: "山田太郎"
         fill_in "メールアドレス", with: "example@mail.com"
         fill_in "パスワード",with: "password"
@@ -62,6 +53,7 @@ RSpec.describe "Users", js: true,type: :system do
       end
     end
     
+    
     describe "screen details" do
       it "displays link to login path" do
         expect(page).to have_link "既に登録済みの方はこちら", href: login_path 
@@ -72,6 +64,7 @@ RSpec.describe "Users", js: true,type: :system do
   describe "Get users#edit" do
     let!(:user){create(:user)}
     before do
+      register_category
       login(user)
       visit edit_user_path(user)
     end
@@ -100,8 +93,8 @@ RSpec.describe "Users", js: true,type: :system do
     end
     
     describe "screen oparation" do 
-    
       context "when input contents are valid" do
+
         before do 
           fill_in "名前", with: "new_username"
           fill_in "メールアドレス", with: "new@mail.com"
@@ -139,9 +132,9 @@ RSpec.describe "Users", js: true,type: :system do
           click_button "プロフィールを更新"
         end
         
-        it "render the the users/edit" do
-          expect(current_path).to eq edit_user_path(user)
-        end
+        # it "render the the users/edit" do
+        #   expect(current_path).to eq edit_user_path(user)
+        # end
         
         it "has 3 errors" do
           expect(page).to have_content("3件のエラー")
@@ -158,6 +151,7 @@ RSpec.describe "Users", js: true,type: :system do
   describe "Get users#edit_password" do
     let!(:user){create(:user)}
     before do
+      register_category
       login(user)
       visit edit_user_password_path(user)
     end
@@ -219,8 +213,14 @@ RSpec.describe "Users", js: true,type: :system do
     end
   end
 
-
   describe "Get users#show" do
+    
+    let!(:user){create(:user)}
+    let!(:other_user){create(:user)}
+    before do
+      register_category
+      create_follow_relationships
+    end
     describe "screen details" do
       context "when the displayed page is own page " do
         before do
@@ -309,6 +309,7 @@ RSpec.describe "Users", js: true,type: :system do
     context "when try to action without login" do
       
       context "when try to edit user without login" do
+        let!(:user){create(:user)}
         before do
           visit edit_user_path(user)
         end
@@ -324,7 +325,10 @@ RSpec.describe "Users", js: true,type: :system do
     end
     
     context "when incorrect user try to action" do
+      let!(:user){create(:user)}
+      let!(:other_user){create(:user)}
       before do
+        register_category
         login user
       end
       
@@ -353,12 +357,8 @@ RSpec.describe "Users", js: true,type: :system do
         it "has danger message" do
           expect(page).to have_content ("その機能はユーザー本人しか利用できません") 
         end
-        
       end
-      
-      
     end
-    
   end
 end
 

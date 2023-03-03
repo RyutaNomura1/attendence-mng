@@ -5,19 +5,11 @@ RSpec.describe "Posts", type: :system do
     driven_by(:rack_test)
   end
 
-  let!(:user){create(:user)}
-  let!(:other_user){create(:user)}
-  let!(:relationship1){create(:relationship1)}
-  let!(:relationship2){create(:relationship2)}
-  let!(:post){create(:post)}
-  let!(:question){create(:question)}
-  big_categories = [:japan, :asia, :oceania, :north_america, :europe, :other ]
-  big_categories.each do |big_category|
-    let!(big_category){create(big_category)}
-  end
 
   describe "Get posts#new" do 
+    let!(:user){create(:user)}
     before do
+      register_category
       login(user)
       visit new_post_path
     end
@@ -26,12 +18,13 @@ RSpec.describe "Posts", type: :system do
       it "displays button for post_path(post)" do 
         expect(page).to have_button "rspec_post_button"
       end
-      
     end
     
     describe "screen oparation" do
       context "when input contents are valid" do
+        let!(:user){create(:user)}
         before do
+          register_category
           fill_in "タイトル", with: "title"
           fill_in "場所", with: "location"
           fill_in "内容", with: "body"
@@ -60,7 +53,6 @@ RSpec.describe "Posts", type: :system do
           expect(page).to have_content "location"
           expect(page).to have_content "body"
           # expect(page).to have_content "東京"
-          
         end
       end
       
@@ -69,16 +61,19 @@ RSpec.describe "Posts", type: :system do
   end
   
   describe "Get posts#edit" do 
+    let!(:user){create(:user)}
+    let!(:post){create(:post)}
     before do
+      register_category
       login(user)
       visit edit_post_path(post)
     end
+    
     describe "screen details" do
       
-      it "displays button for post_path(post)" do 
+      it "displays button for post_path(patch)" do 
         expect(page).to have_button "rspec_post_button"
       end
-      
     end
     
     describe "screen oparation" do
@@ -112,8 +107,6 @@ RSpec.describe "Posts", type: :system do
           expect(page).to have_content "new_body"
         end
       end
-      
-      
     end
   end
   
@@ -128,7 +121,7 @@ RSpec.describe "Posts", type: :system do
     
     
   end
-  
+
   describe "before action" do
     context "when try to action without login" do
       context "when try to see posts without login" do
@@ -158,6 +151,8 @@ RSpec.describe "Posts", type: :system do
       end
       
       context "when try to edit post without login" do
+        let!(:user){create(:user)}
+        let!(:post){create(:post)}
         before do
           visit edit_post_path(post)
         end
@@ -169,41 +164,19 @@ RSpec.describe "Posts", type: :system do
           expect(page).to have_content "新規登録、またはログインをしてください"
         end
       end
-      
-      # context "when try to update(pacth) post without login" do
-      #   before do
-      #     patch post_path(post)
-      #   end
-      #   it "redirects to new user path" do
-      #     expect(current_path).to eq new_user_path
-      #   end
-        
-      #   it "has danger message" do
-      #     expect(page).to have_content "新規登録、またはログインをしてください"
-      #   end
-        
-      # end
-      
-      # context "when try to edit post without login" do
-      #   before do
-      #     delete post_path(post)
-      #   end
-      #   it "redirects to new user path" do
-      #     expect(current_path).to eq new_user_path
-      #   end
-        
-      #   it "has danger message" do
-      #     expect(page).to have_content "新規登録、またはログインをしてください"
-      #   end
-      # end
-      
     end
     
     context "when incorrect user try to action" do
+      
+      let!(:user){create(:user)}
+      let!(:other_user){create(:user)}
+      let!(:post){create(:post)}
       before do
+        register_category
         login other_user
       end
       context "when user try to edit other users post" do
+        
         before do 
           visit edit_post_path(post)
         end
@@ -215,8 +188,6 @@ RSpec.describe "Posts", type: :system do
           expect(page).to have_content ("その機能はユーザー本人しか利用できません") 
         end        
       end
-      
-
     end
   end
 end

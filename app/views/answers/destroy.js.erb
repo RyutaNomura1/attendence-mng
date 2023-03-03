@@ -1,2 +1,4 @@
 <!--render内を更新-->
 $("#ajax-for-answers").html("<%= j(render 'answers/answers', question: @question)%>")
+<!--回答数を更新する-->
+$("#ajax-count-answers").html("<%= @question.answers.count%>")

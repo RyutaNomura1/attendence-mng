@@ -2,3 +2,5 @@
 $("#ajax-for-answers").html("<%= j(render 'answers/answers', question: @question)%>")
 <!--入力欄を空にする-->
 $(".question-answer-create-textarea").val('');
+<!--回答数を更新する-->
+$("#ajax-count-answers").html("<%= @question.answers.count%>")

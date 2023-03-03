@@ -7,13 +7,9 @@ RSpec.describe "header", type: :system do
 
   describe "screen details" do
     let!(:user){create(:user)}
-    let!(:other_user){create(:user)}
-    big_categories = [:japan, :asia, :oceania, :north_america, :europe, :other ]
-    big_categories.each do |big_category|
-      let!(big_category){create(big_category)}
-    end
     context "when user is logged in" do
       before do
+        register_category
         login user
         visit root_path
       end
@@ -46,12 +42,8 @@ RSpec.describe "header", type: :system do
 
   describe "screen oparations" do
     let!(:user){create(:user)}
-    let!(:other_user){create(:user)}
-    big_categories = [:japan, :asia, :oceania, :north_america, :europe, :other ]
-    big_categories.each do |big_category|
-      let!(big_category){create(big_category)}
-    end
     before do
+      register_category
       login user
       visit root_path
     end
