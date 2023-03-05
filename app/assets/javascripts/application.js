@@ -15,6 +15,4 @@
 //= require bootstrap-sprockets
 //= require rails-ujs
 //= require activestorage
-//= require_tree .
-
-// require('follow_list_modal')
+//= require_tree

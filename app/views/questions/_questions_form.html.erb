@@ -2,11 +2,19 @@
 
   <%= render "shared/error_messages", object: f.object %>
 
-  <%= f.label :question_title, "タイトル", class: "label-control"%>
+  <div class="d-flex label-control  align-items-start">
+    <%= f.label :question_title, "タイトル"%>
+    <span class="essential-label">必須</span>
+  </div>
   <%= f.text_field :question_title, class: 'form-control' %>
-
-  <%= f.label :question_body, "内容", class: "label-control" %>　　　
+  
+  
+  <div class="d-flex label-control  align-items-start">
+    <%= f.label :question_body, "内容"%>
+    <span class="essential-label">必須</span>
+  </div>
   <%= f.text_area :question_body, class: 'form-control' %>
+
   <div class="submit-position">
     <%= f.submit locals[:button_text] , class: "btn btn-success" , id: "rspec_create_question_button" %>
   </div>

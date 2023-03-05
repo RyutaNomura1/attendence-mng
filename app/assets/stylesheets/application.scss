@@ -12,6 +12,7 @@
  *
  */
 @import "basic";
+@import "paginate";
 @import "bootstrap";
 @import 'font-awesome';
 
@@ -104,6 +105,12 @@ button:focus{
   margin: 30px auto;
   padding: 40px;
 }
+.w900-container {
+  width: 900px;
+  @include page-container
+  margin: 30px auto;
+  padding: 40px;
+}
 
 .w1100-container {
   max-width: 1100px;
@@ -128,9 +135,19 @@ textarea.form-control {
   height: 200px;
 }
 .label-control{
-  font-size: 20px;
-  margin: 30px 8px 12px;
+  font-size: 18px;
+  margin: 20px 8px 8px;
   font-weight: bold;
+}
+.essential-label{
+  color: white;
+  padding: 1px 3px;
+  font-size: 13px;
+  margin-left: 10px;
+  border: 1px red;
+  border-radius: 3px;
+  background-color: red;
+  margin-top: 3px;
 }
 .submit-position{
   text-align: center;
@@ -328,7 +345,9 @@ footer{
   border-radius: 5px; 
   box-shadow: $conShadow ;
 }
-  
+.modal-content{
+  background-color: #f2f2f2;
+}
 .list-top-element{
   margin: 0;
 }
@@ -565,6 +584,7 @@ footer{
   border: none;
   border-bottom: 1px solid #dee2e6;
   color: black;
+  height: 25px;
   &:focus{
     outline: none;
   }

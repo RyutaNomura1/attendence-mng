@@ -49,8 +49,8 @@
             <!--spanはモーダル表示ボタンのため  -->
               <%= attachment_image_tag list, :post_image, class: "d-block", style: "margin: 0 auto ;", size: '540x540' %>
           </span>
-          <div class="ml-4">
-            <%= simple_format list.body, class: "post-body" %>
+          <div class="mx-4">
+            <%= simple_format list.body, class: "post-body pt-2" %>
             <% list.categories.each do |category| %><!--カテゴリーをハッシュタグで表示-->
               <%= link_to "##{category.name}", root_path(name: category.name), class: "post-category-name-tag" %>
             <% end %>
@@ -94,6 +94,8 @@
         </section>
       <% end %>
     <% end %>
+
+    <%= will_paginate @lists%>
   </section>
   
   <section class="list-right-container">

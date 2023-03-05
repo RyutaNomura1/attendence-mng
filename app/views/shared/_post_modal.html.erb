@@ -3,7 +3,7 @@
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
     
-            <section class = "list-container my-5">
+            <section class = "list-container list-modal my-5">
                 <%= link_to user_path(post.user) do %>
                   <%= attachment_image_tag post.user, :profile_image, class: "profile_image my-2 mr-2 ml-3", fallback: "no_image.jpg", size: '40x40' %>
                 <% end %>
@@ -18,7 +18,7 @@
                 <%= attachment_image_tag post, :post_image, class: "d-block", style: "margin: 0 auto ;", size: '540x540' %>
               <% end %>
               <div class="ml-4">
-                <%= simple_format post.body, class: "post-body" %>
+                <%= simple_format post.body, class: "post-body pt-2" %>
                 <% post.categories.each do |category| %><!--カテゴリーをハッシュタグで表示-->
                   <%= link_to "##{category.name}", root_path(name: category.name), class: "post-category-name-tag" %>
                 <% end %>
@@ -41,7 +41,7 @@
               <!--コメントの作成フォーム-->
               <div class= "post-comment-container">
                 <%= form_with model: [post, comment], method: :post do |f| %>
-                  <%= f.text_area :comment_body, placeholder: "コメント \uf303" , class: "fa post-comment-create-textarea" %>
+                  <%= f.text_area :comment_body, placeholder: "コメント" , class: "post-comment-create-textarea" %>
                   <%= f.submit "投稿する", class: "post-comment-create-input"%>
                 <% end %>
               <!--コメントの表示-->

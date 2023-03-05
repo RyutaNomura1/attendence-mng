@@ -1,0 +1,41 @@
+$paginateColor: #28a745;
+$paginateWhite: #fff;
+.pagination {
+  font-weight: bold;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  .page-item{
+    &.active .page-link{
+      background-color: $paginateColor;
+      border-color: #dee2e6;
+    }
+    &.disabled .page-link{
+      color: $paginateColor;
+    }
+  }
+  li {
+    margin: 0 5px;
+
+    &:first-child a, &:last-child a {
+      padding: 6px 12px;
+      background-color: $paginateColor;
+      color: $paginateWhite;
+      border-radius: 5px;
+      
+    }
+
+    a {
+      color: $paginateColor;
+      text-decoration: none;
+    }
+
+    &.active a {
+      font-weight: bold;
+
+    }
+  }
+}

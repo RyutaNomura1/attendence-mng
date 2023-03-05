@@ -26,6 +26,9 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 gem 'jquery-rails'
 gem 'bootstrap', '~> 4.3.1'
+gem 'will_paginate-bootstrap4'
+gem 'will_paginate'
+
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
@@ -74,3 +77,4 @@ gem "refile-mini_magick"
 gem "font-awesome-sass"
 #エラーメッセージの日本語化
 gem 'rails-i18n'
+gem "dockerfile-rails", ">= 1.2", :group => :development
