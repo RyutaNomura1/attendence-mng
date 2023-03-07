@@ -26,7 +26,7 @@ production:
   adapter: postgresql
   encoding: unicode
   pool: 5
-  database_url: sharevel_production
   host: localhost
-  username: sharevel
-  password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
+  username: ec2-user
+  database: postgres
+  password: password
