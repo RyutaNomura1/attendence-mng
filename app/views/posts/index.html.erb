@@ -82,7 +82,7 @@
           <div>
             <p class = "pb-1 list-created-at"><%= list.created_at.strftime("%Y-%m-%d %H:%M") %></p>
             <div class="text-right">
-              <p class="list-created-at d-inline-block pr-3" style="font-size:12px;"><%= list.answers.count %> 件の回答</p>
+              <p class="list-created-at d-inline-block pr-3" style="font-size:12px;"><%= list.answers.count %>件の回答</p>
               <% if current_user == list.user%>
                 <%= link_to question_path(list), class: "d-inline-block pr-2", data: {confirm: "質問を削除しますか？"}, method: :delete do %>
                   <i class="far fa-trash-alt post-font-awesome"></i>

@@ -15,7 +15,13 @@ module SystemSupport
   end
   
   def create_follow_relationships
-      create(:relationship1)
-      create(:relationship2)
+    Relationship.create( followed_id: user.id, follower_id: other_user.id)
+    Relationship.create( followed_id: other_user.id, follower_id: user.id)
   end
+  
+  def create_follow_relationships1
+    create(:relationship1, followed_id: user.id, follower_id: other_user.id)
+    create(:relationship1, followed_id: other_user.id, follower_id: user.id)
+  end
+  
 end

@@ -118,35 +118,6 @@ RSpec.describe "Questions", type: :system do
         it "creates new answer" do
            expect {click_button "回答を投稿"}.to change(Answer, :count).by(1)
         end
-        
-        
-        # 作成したAnswerを削除
-        # context "when user try to delete new answer" do
-        #   before do
-        #     click_button "回答を投稿"
-        #   end
-          
-        #   it "deletes new answer" do
-        #     expect {find(".fa-trash-alt")}.to change(Answer, :count).by(-1)
-        #   end
-          
-        #   it "changes count of answer in the page" do
-        #     answer_count = question.answers.count
-        #     find(".fa-trash-alt").click
-        #     expect(page).to have_content "#{answer_count - 1}件の回答"
-        #   end
-          
-        #   it "doesnt displays contents of new answer" do
-        #     find(".fa-trash-alt").click
-        #     expect(page).not_to have_content "new_answer"
-        #   end
-          
-        #   it "doesnt displays link to delete new answer" do
-        #     find(".fa-trash-alt").click
-        #     expect(page).not_to have_selector ".fa-trash-alt"
-        #   end
-          
-        # end
       end
       
       context "when user try to create new invalid answer" do

@@ -1,5 +1,7 @@
 class PostsController < ApplicationController
-  before_action :logged_in_user
+  
+  before_action :logged_in_user_for_root, only: :index
+  before_action :logged_in_user, except: :index
   before_action :correct_post_user, only: [:edit, :update, :destroy]
   before_action :define_big_categories, only: [:edit, :new, :index, :create, :update]
   
@@ -56,6 +58,14 @@ class PostsController < ApplicationController
     params.require(:post).permit(:title, :body, :post_image, :location, category_ids: [])
   end
   
+  def logged_in_user_for_root
+    unless  logged_in?
+      # フラッシュメッセージを表示しない
+      redirect_to new_user_path
+    end
+  end
+
+  
   def define_lists_by_params
     if params[:name]
       category = Category.find_by(name: params[:name])
@@ -78,11 +88,7 @@ class PostsController < ApplicationController
   end
   
   def define_big_categories
-    @big_categories = []
     bc_names = %w(国内旅行 アジア オセアニア 北アメリカ ヨーロッパ その他)
-    bc_names.each do |bc_name, i|
-      i = Category.where(big_category: bc_name)
-      @big_categories.push(i)
-    end
+    @big_categories = Category.where(big_category: bc_names).group_by(&:big_category).values
   end
 end

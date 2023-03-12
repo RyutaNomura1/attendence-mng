@@ -29,3 +29,7 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+; 不要マイグレーションファイル
+20230203010027_add_category_to_posts.rb
+20230203024232_remove_category_from_posts.rb

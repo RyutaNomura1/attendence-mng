@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, except: [:new, :create]
-  before_action :correct_user, only: [:edit, :update, :edit_password, :update_password
-]
+  before_action :correct_user, only: [:edit, :update, :edit_password, :update_password]
   
   def new
     @user = User.new
@@ -12,6 +11,7 @@ class UsersController < ApplicationController
     if @user.save
       session[:user_id] = @user.id
       flash[:success] = "#{@user.username}さんは新規登録されました"
+      follow_official_user
       redirect_to root_url
     else
       render "new"
@@ -53,6 +53,10 @@ class UsersController < ApplicationController
   end
 
   private 
+    def follow_official_user
+      Relationship.create(followed_id: 1, follower_id: User.find_by(email: params[:user][:email]).id)
+    end
+  
     def create_user_params
       params.require(:user).permit(:username,:email, :password,
                                    :password_confirmation)

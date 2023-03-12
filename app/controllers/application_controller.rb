@@ -8,6 +8,13 @@ class ApplicationController < ActionController::Base
       end
     end
     
+    def logged_in_user_for_root
+      unless  logged_in?
+        # フラッシュメッセージを表示しない
+        redirect_to new_user_path
+      end
+    end    
+    
     def correct_user
       unless current_user == User.find(params[:id])
         redirect_to root_path
